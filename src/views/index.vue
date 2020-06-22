@@ -2,7 +2,7 @@
     <div class="index">
         <div class="index-bg">
             <div class="back" @click="back"></div>
-            <img class="bg-img" src="../assets/image/lottery-bg.png" alt="">
+            <img class="bg-img" src="../assets/image/lottery-bg.jpg" alt="">
 
             <div class="content">
                 <div class="go" @click="go">

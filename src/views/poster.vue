@@ -1,7 +1,7 @@
 <template>
     <div class="poster">
         <div class="poster-bg">
-            <img class="bg-img" src="../assets/image/poster.png" alt="">
+            <img class="bg-img" src="../assets/image/poster.jpg" alt="">
             <div class="wx-content">
                 <div class="top">
                     <div class="avatar">

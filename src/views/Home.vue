@@ -1,7 +1,7 @@
 <template>
     <div id="home">
         <div class="bg">
-            <img class="bg-1" src="../assets/image/index-bg.png">
+            <img class="bg-1" src="../assets/image/index-bg.jpg">
             <div class="logo">
                 <img class="animated"  src="../assets/image/logo.png" alt="logo" srcset="">
             </div>
