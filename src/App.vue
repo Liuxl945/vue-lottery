@@ -1,8 +1,8 @@
 <template>
     <div id="app">
-        <div id="nav">
+        <!-- <div id="nav">
             <router-link class="link" :to="item.path" v-for="item in router" :key="item.name">{{item.name}}</router-link>
-        </div>
+        </div> -->
         <router-view />
     </div>
 </template>
@@ -21,7 +21,12 @@ export default {
 </script>
 
 <style lang="scss">
+#app{
+	height: 100%;
+	width: 100%;
+}
 @import url("./assets/reset.scss");
 @import url("./assets/base.scss");
+
 
 </style>
