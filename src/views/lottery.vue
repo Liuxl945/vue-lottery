@@ -13,17 +13,27 @@
                 </div>
             </div>
         </div>
+
+        <lottery-result :show="lotteryShow"></lottery-result>
     </div>
 </template>
 
 <script>
 
+import lotteryResult from "../components/lottery-result"
+
 const PRIZE_LIST = 8
 const CIRCLE_ANGLE = 360
 
+
+
 export default {
+    components: {
+        lotteryResult
+    },
     data() {
         return {
+            lotteryShow: true,
             lottery: [
                 {
                     id: 0,

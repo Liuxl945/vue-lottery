@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 const state = {
-    indexState: 1,
+    indexState: 2,
 }
 
 const mutations = {

@@ -73,9 +73,9 @@ export default {
     methods: {
         selectAnswer() {
             let index = this.index
-            this.questionData[index].isAnser = true
+            this.questionData[this.dataindex][index].isAnser = true
 
-            if(index === this.questionData.length -1 ){
+            if(index === this.questionData[this.dataindex].length -1 ){
                 
                 this.successShow = true
                 return
@@ -90,7 +90,7 @@ export default {
             this.errorShow = false
             this.successShow = false
 
-            this.questionData.forEach(element => {
+            this.questionData[this.dataindex].forEach(element => {
                 element.isAnser = false
             })
         },
