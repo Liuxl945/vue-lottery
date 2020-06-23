@@ -1,9 +1,9 @@
 <template>
     <div class="modal" v-if="show">
-        <div class="content" v-if="!successShow && !errorShow">
+        <div class="content" v-show="!successShow && !errorShow">
             <img class="bg" src="../assets/image/qestion-bg.png" alt="" srcset="">
             <div class="title">
-                <img src="../assets/image/1.png" alt="">
+                <img :src="titleImage" alt="">
             </div>
 
             <div class="qeustion-answer">
@@ -12,7 +12,7 @@
                 </div>
 
                 <ul class="answer">
-                    <li class="answer-item" v-for="item in selectData.answer" :key="item.tips" @click="selectAnswer">
+                    <li class="answer-item" v-for="item in selectData.answer" :key="item.tips" @click="selectAnswer(item.yes)">
                         <div class="order">{{item.tips}}</div>
                         <div class="item">{{item.name}}</div>
                         <div class="right-or-wrong" v-if="selectData.isAnser">
@@ -24,10 +24,17 @@
             
         </div>
 
-        <div class="success-error" v-show="successShow || errorShow ">
-            <img src="../assets/image/success.png" v-if="successShow" alt="成功">
-            <img src="../assets/image/error.png" v-if="errorShow" alt="失败">
-            <div class="close" @click="closeModal"></div>
+        <div class="success-error" v-if="successShow || errorShow ">
+            <div v-if="successShow">
+                <img src="../assets/image/success.png" alt="成功">
+                <p class="score">{{score}}分</p>
+            </div>
+            <div v-if="errorShow">
+                <img src="../assets/image/error.png" alt="失败">
+                <p class="score" style="top: 42%;">{{score}}分</p>
+            </div>
+            
+            <!-- <div class="close" @click="closeModal"></div>wx-content -->
             <div class="again" @click="again"></div>
             <div class="poster" @click="poster"></div>
         </div>
@@ -37,6 +44,7 @@
 <script>
 
 const data = require("./question.json")
+import { mapState } from 'vuex'
 
 export default {
     props: {
@@ -53,6 +61,12 @@ export default {
         dataindex: {
             type: Number,
             default: 1
+        },
+        playagain: {
+            type: Function,
+            default: () => {
+                
+            }
         }
     },
     data() {
@@ -66,23 +80,45 @@ export default {
         }
     },
     computed: {
+        titleImage() {
+            return require(`../assets/image/${this.dataindex}.png`) 
+        },
         selectData() {
             return this.questionData[this.dataindex][this.index]
-        }
+        },
+        ...mapState({
+            score: state => state.score,
+        })
     },
     methods: {
-        selectAnswer() {
+        selectAnswer(yes) {
             let index = this.index
+            if(this.questionData[this.dataindex][index].isAnser){
+                return
+            }
+            
             this.questionData[this.dataindex][index].isAnser = true
-
-            if(index === this.questionData[this.dataindex].length -1 ){
+            
+            if(this.dataindex === Object.keys(this.questionData).length){
                 
-                this.successShow = true
+                // 场景结束 计算分数
+                if(this.score >= 60){
+                    // 成功
+                    this.successShow = true
+                }else{
+                    // 失败
+                    this.errorShow = true
+                }
+
                 return
             }
             setTimeout(() => {
-                this.closeModal()
-            },200)
+                this.cancle()
+            },1000)
+            
+            if(yes){
+                this.$store.commit("SET_SCORE",this.score + 10)
+            }
         },
         closeModal() {
             this.cancle()
@@ -90,24 +126,37 @@ export default {
             this.errorShow = false
             this.successShow = false
 
-            this.questionData[this.dataindex].forEach(element => {
-                element.isAnser = false
-            })
+            for(let i = 1;i<= Object.keys(this.questionData).length;i++) {
+                let item = this.questionData[i]
+                for(let j = 0;j< item.length;j++){
+                    item[j].isAnser = false
+                }
+            }
         },
         again() {
             if(this.successShow){
                 // 抽奖
                 this.$store.commit("SET_INDEX", 2)
-
             }else{
                 // 继续答题
                 this.index = 0
                 this.errorShow = false
+                // this.priceIndex = 1
+                this.$store.commit("SET_SCORE",0)
+                this.playagain()
             }
+            this.closeModal()
         },
         poster() {
             // 生成海报
             this.$store.commit("SET_INDEX", 3)
+            this.closeModal()
+        }
+    },
+    watch: {
+        dataindex(val) {
+            let max = this.questionData[val].length - 1
+            this.index = Math.floor(Math.random() * max) + 1
         }
     }
 }
@@ -125,7 +174,7 @@ export default {
     .title{
         position: absolute;
         height: 46px;
-        top: 200px;
+        top: 190px;
         left: 50%;
         transform: translateX(-50%);
         >img{
@@ -185,13 +234,23 @@ export default {
 .success-error{
     position: relative;
     width: 75%;
+    .score{
+        position: absolute;
+        left: 43%;
+        top: 49%;
+        transform: translateX(-50%);
+        color: #fff;
+        font-size: 72px;
+        font-weight: 600;
+        transform: rotate(-11deg);
+    }
     img{
         width: 100%;
     }
     .close{
         position: absolute;
         right: 0;
-        top: 120px;
+        top: 135px;
         width: 70px;
         height: 70px;
     }

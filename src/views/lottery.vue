@@ -1,7 +1,9 @@
 <template>
     <div class="index">
         <div class="index-bg">
-            <div class="back" @click.prevent="back"></div>
+            <div class="back" @click.prevent="back">
+                <img src="../assets/image/back.png" alt="返回">
+            </div>
             <img class="bg-img" src="../assets/image/lottery-bg.jpg" alt="">
 
             <div class="content">
@@ -14,7 +16,7 @@
             </div>
         </div>
 
-        <lottery-result :show="lotteryShow"></lottery-result>
+        <lottery-result :show="lotteryShow" :cancle="lotteryShowHide" :priceIndex="lottery[index].id"></lottery-result>
     </div>
 </template>
 
@@ -33,7 +35,8 @@ export default {
     },
     data() {
         return {
-            lotteryShow: true,
+            index: 0,
+            lotteryShow: false,
             lottery: [
                 {
                     id: 0,
@@ -102,8 +105,11 @@ export default {
         },
         rotateOver() {
             this.isRotating = false
-            
-            alert(this.lottery[this.index].name)
+            this.lotteryShow = true
+            // alert(this.lottery[this.index].name)
+        },
+        lotteryShowHide() {
+            this.lotteryShow = false
         }
     },
     computed: {
@@ -132,7 +138,7 @@ export default {
     position: relative;
     .back{
         position: absolute;
-        z-index: 110;
+        z-index: 10;
         left: 30px;
         top: 90px;
         width: 88px;

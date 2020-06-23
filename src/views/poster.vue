@@ -22,8 +22,12 @@
             </div>
 
             <div class="bottom-btn">
-                <div class="share" @click.prevent="share"></div>
-                <div class="back" @click.prevent="back"></div>
+                <div class="share" @click.prevent="share">
+                    <img src="../assets/image/share-btn.png" alt="" srcset="">
+                </div>
+                <div class="back" @click.prevent="back">
+                    <img src="../assets/image/back-btn.png" alt="">
+                </div>
             </div>
         </div>
 
@@ -77,6 +81,7 @@ export default {
 }
 .wx-content{
     position: absolute;
+    width: 100%;
     padding: 20px;
     color: #118666;
     display: flex;
@@ -126,16 +131,22 @@ export default {
 }
 .bottom-btn{
     position: absolute;
-    bottom: 50px;
+    bottom: 100px;
     width: 100%;
     height: 88px;
     display: flex;
     padding: 0 100px;
     .share{
         flex:1;
+        img{
+            width: 90%;
+        }
     }
     .back{
         flex: 1;
+        img{
+            width: 90%;
+        }
     }
 }
 </style>
