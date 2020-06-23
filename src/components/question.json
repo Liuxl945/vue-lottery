@@ -1,0 +1,458 @@
+{
+    "1":[
+        {
+            "title": "屈原是我国春秋时期哪国人?",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"秦国",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"辣国",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"楚国",
+                "yes": true
+            },{
+                "tips":"D",
+                "name":"赵国",
+                "yes": false
+            }]
+        },{
+            "title": "赛龙舟是端午节的主要习俗之一,相传起源于古代楚国人因舍不得贤臣屈原投江死去,许多人划船追赶拯救。其实, \"龙舟竞渡\"早在（）时期就有了",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"南北朝时期",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"商周时期",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"战国时期",
+                "yes": false
+            },{
+                "tips":"D",
+                "name":"春秋时期",
+                "yes": true
+            }]
+        },{
+            "title": "农历五月初五端午节,请问这个\"端\"字在这里是什么意思?",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"端正",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"开端",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"未端",
+                "yes": false
+            },{
+                "tips":"D",
+                "name":"端着、托着",
+                "yes": false
+            }]
+        },{
+            "title": "下列哪项不是端午节的习俗?",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"吃粽子",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"赛龙舟",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"登高采菊",
+                "yes": true
+            },{
+                "tips":"D",
+                "name":"饮雄黄酒",
+                "yes": false
+            }]
+        },{
+            "title": "端午节是哪一天？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"农历六月初五",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"阳历六月初五",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"阳历五月初五",
+                "yes": false
+            },{
+                "tips":"D",
+                "name":"农历五月初五",
+                "yes": true
+            }]
+        },{
+            "title": "端午节是为了纪念一个著名人物谁？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"屈原",
+                "yes": true
+            },{
+                "tips":"B",
+                "name":"孙斌",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"诸葛亮",
+                "yes": false
+            },{
+                "tips":"D",
+                "name":"廉颇",
+                "yes": false
+            }]
+        },{
+            "title": "屈原的代表作是什么？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"《史记》",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"《离骚》",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"《春秋》",
+                "yes": false
+            },{
+                "tips":"D",
+                "name":"《诗经》",
+                "yes": false
+            }]
+        },{
+            "title": "里水有着一批省、市、区级非物质文化遗产项目，其中省级1项、市级3项、区级1项，下面哪一项非遗属于“省级”非遗？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"南海藤编（里水）",
+                "yes": true
+            },{
+                "tips":"B",
+                "name":"白眉拳",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"赤山跳火光",
+                "yes": false
+            },{
+                "tips":"D",
+                "name":"龙舟说唱",
+                "yes": false
+            }]
+        }
+    ],
+    "2": [
+        {
+            "title": "里水现有两位市级的藤编传承人，他们分别是_____、何日成。",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"何丽容",
+                "yes": true
+            },{
+                "tips":"B",
+                "name":"梁灿尧",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"吕永均",
+                "yes": false
+            }]
+        },{
+            "title": "里水镇内哪一家企业被评为广东省非物质文化遗产生产性保护示范基地？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"南海毛巾厂",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"里水镇裕达家具有限公司",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"纳德利龙舟厂",
+                "yes": false
+            }]
+        }
+    ],
+    "3": [
+        {
+            "title": "龙舟说唱民间又叫_____或唱龙舟？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"叫龙舟",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"龙舟歌",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"喊龙舟",
+                "yes": false
+            }]
+        },{
+            "title": "表演龙舟说唱是以手持带有木雕小龙舟长棍为标识，以敲打胸前所挂的_____、_____作为间歇吟诵的伴奏，以在村落乡间“祝颂”为主要功能。",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"小锣 、小鼓",
+                "yes": true
+            },{
+                "tips":"B",
+                "name":"小锣、小镲",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"小钵 、小镲",
+                "yes": false
+            }]
+        },{
+            "title": "早在2007年，南海龙舟说唱就被列入佛山市非物质文化遗产名录，目前里水龙舟说唱的传承人是谁？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"蒋延广",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"黄鲁逸",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"蒋干文",
+                "yes": true
+            }]
+        }
+    ],
+    "4": [
+        {
+            "title": "白眉拳传承人黄新健是哪个级别的非遗传承人?",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"省级",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"市级",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"区级",
+                "yes": false
+            }]
+        },{
+            "title": "下面哪一个学校被认定为白眉拳的市级传承基地？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"里水麻奢小学",
+                "yes": true
+            },{
+                "tips":"B",
+                "name":"里水小学",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"里水中心小学",
+                "yes": false
+            }]
+        }
+    ],
+    "5": [
+        {
+            "title": "每年元宵节村民希望通过跳火光这个活动来祈求新的一年?",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"风调雨顺",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"国泰民安",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"以上均是",
+                "yes": true
+            }]
+        },{
+            "title": "里水赤山跳火光习俗延续至今有多少年了?",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"200多年",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"100多年",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"300多年",
+                "yes": true
+            }]
+        }
+    ],
+    "6": [
+        {
+            "title": "南海里水毛巾织造是一种极为传统的手工技艺，在行业中树立了两个知名品牌分别是？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"立康、红棉",
+                "yes": true
+            },{
+                "tips":"B",
+                "name":"康立、红棉",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"立康、红花",
+                "yes": false
+            }]
+        },{
+            "title": "南海里水毛巾厂的“红棉”商标被国家商务部认定为“_____”商标，它们见证了珠三角的蚕丝棉纺历。",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"中华佳品",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"中华老字号",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"中华著名",
+                "yes": false
+            }]
+        }
+    ],
+    "7": [
+        {
+            "title": "粤剧，又称“广府大戏”发源于佛山，它的技艺分为四大基本类别，分别是_____、_____、_____、_____。",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"唱、念、造、提",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"喊、念、造、打",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"唱、念、造、打",
+                "yes": true
+            }]
+        },{
+            "title": "粤曲原为粤剧的曲调，后形成独立的曲种，主要喉腔有_____、_____、_____。",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"平喉、子喉、小喉",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"平喉、子喉、大喉",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"平喉、子喉、老喉",
+                "yes": false
+            }]
+        },{
+            "title": "里水现有两位区级粤曲传承人，她们分别是郑艳芬、_____？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"郑雪娴",
+                "yes": true
+            },{
+                "tips":"B",
+                "name":"袁惠勤",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"梁春凤",
+                "yes": false
+            }]
+        }
+    ],
+    "8": [
+        {
+            "title": "醒狮，是民间传统体育项目，而里水醒狮属于中国    派系，是地道的广东民间舞，被认为是驱邪避害的吉祥瑞物。",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"北狮",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"南狮",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"粤狮",
+                "yes": false
+            }]
+        },{
+            "title": "里水黄桂平属于哪个级别的醒狮非遗传承人？",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"广东省级",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"佛山市级",
+                "yes": true
+            },{
+                "tips":"C",
+                "name":"南海区级",
+                "yes": false
+            }]
+        },{
+            "title": "自上世纪八十年代初期起，里水镇政府每年   均会举行醒狮会，邀请本地或外镇的醒狮武馆参加，至今已有近30年的历史。",
+            "isAnser": false,
+            "answer": [{
+                "tips":"A",
+                "name":"正月初一",
+                "yes": false
+            },{
+                "tips":"B",
+                "name":"正月初三",
+                "yes": false
+            },{
+                "tips":"C",
+                "name":"正月初八",
+                "yes": true
+            }]
+        }
+    ]
+}

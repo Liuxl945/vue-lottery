@@ -177,9 +177,8 @@ export default {
         again() {
             if(this.successShow){
                 // 抽奖
-                this.$router.push({
-                    name: "index",
-                })
+                this.$store.commit("SET_INDEX", 2)
+
             }else{
                 // 继续答题
                 this.index = 0
@@ -188,12 +187,7 @@ export default {
         },
         poster() {
             // 生成海报
-            this.$router.push({
-                name: "poster",
-                params: {
-                    userId:111
-                }
-            })
+            this.$store.commit("SET_INDEX", 3)
         }
     }
 }

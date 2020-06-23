@@ -1,22 +1,40 @@
 <template>
     <div id="app">
-        <!-- <div id="nav">
-            <router-link class="link" :to="item.path" v-for="item in router" :key="item.name">{{item.name}}</router-link>
-        </div> -->
-        <router-view />
+        <v-index v-if="index === 1" @change="change"></v-index>
+		<v-lottery v-if="index === 2"></v-lottery>
+		<v-poster v-if="index === 3"></v-poster>
     </div>
 </template>
 
+
 <script>
+
+import Index from "./views/home"
+import Lottery from "./views/lottery"
+import Poster from "./views/poster"
+import { mapState } from 'vuex'
+
 export default {
-	data() {
-		return {
-			router: []
-		}
+    components: {
+        "v-index": Index,
+        "v-lottery": Lottery,
+        "v-poster": Poster,
+    },
+    data() {
+        return {
+			
+        }
+    },
+    methods: {
+        change(index) {
+            this.index = index
+        }
 	},
-	mounted() {
-		this.router = this.$router.options.routes
-	}
+	computed: {
+        ...mapState({
+            index: state => state.indexState,
+        })
+    }
 }
 </script>
 

@@ -6,11 +6,12 @@
                 <img class="animated"  src="../assets/image/logo.png" alt="logo" srcset="">
             </div>
 
-            <div class="sence" v-show="gogogoshow">
+            <div class="sence" v-show="gogogoshow" >
                 <canvas id="gameStage" width="750px" height="1334px"></canvas>
             </div>
 
-            <div class="btn-go" @click="initGo" @touchstart = start @touchend = end>
+            <div class="btn-go" @touchstart="start" @touchend="end">
+                <div class="fixed"></div>
                 <img class="animated" src="../assets/image/btn.png" alt="开始">
             </div>
 
@@ -20,12 +21,11 @@
                 <div class="btn" @click="ruleModal = true ">活动规则</div>
             </div>
         </div>
-        
-        
 
         <v-rule :show="ruleModal" :cancle="cancleRuleModal"></v-rule>
         <v-question :show="questionModal" :cancle="cancleQuestionModal"></v-question>
     </div>
+    
 </template>
 
 <script>
@@ -34,8 +34,6 @@ import question from "@/components/question"
 
 let img = new Image()
 img.src = require("../assets/image/long.png")
-
-
 
 export default {
     components: {
@@ -54,6 +52,9 @@ export default {
         }
     },
     mounted() {
+        this.imageIndex = 0
+        this.gogogoshow = false
+
         setTimeout(() => {
             this.mycanvas = document.getElementById('gameStage')
             this.ctx = this.mycanvas.getContext('2d')
@@ -66,25 +67,28 @@ export default {
         }, 20)
     },
     methods: {
-        initGo() {
-            if(!this.gogogoshow){
-                this.gogogoshow = true
-            }
-        },
         cancleRuleModal() {
             this.ruleModal = false
         },
         cancleQuestionModal() {
             this.questionModal = false
         },
-        start() {
-        clearInterval(this.loop); //再次清空定时器，防止重复注册定时器
-            this.loop = setInterval(() => {
+        start(e) {
+            e.preventDefault()
+            if(!this.gogogoshow){
+                this.gogogoshow = true
                 this.gogogo()
-            },20);
+                return
+            }else{
+                clearInterval(this.loop) //再次清空定时器，防止重复注册定时器
+                this.loop = setInterval(() => {
+                    this.gogogo()
+                },20)
+            }
         },
-        end() {
-            clearInterval(this.loop); //清空定时器，防止重复注册定时器
+        end(e) {
+            e.preventDefault()
+            clearInterval(this.loop) //清空定时器，防止重复注册定时器
         },
         gogogo() {
             if(!this.ctx || this.activeIndex === 6){
@@ -96,6 +100,7 @@ export default {
                 this.activeIndex ++
                 alert(`场景${this.activeIndex}`)
                 this.questionModal = true
+                clearInterval(this.loop)
                 return
             }
 
@@ -152,7 +157,7 @@ export default {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 100px;
+        top: 40px;
     }
     .animated{
         animation-duration: 1s;
@@ -175,14 +180,19 @@ export default {
         left: 50%;
         transform: translateX(-50%);
         bottom: 120px;
-
+        .fixed{
+            position: absolute;
+            width: 178px * 1.17;
+            height: 92px * 1.17;
+            z-index: 10;
+        }
         img{
             width: 178px * 1.17;
             height: 92px * 1.17;
         }
     }
     .right{
-        position: fixed;
+        position: absolute;
         right: 0;
         bottom: 100px;
 
@@ -209,6 +219,7 @@ export default {
         width: 100%;
         height: 100%;
         position: absolute;
+        background: #e74244;
         top: 0;
         left: 0;
     }

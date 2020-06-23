@@ -70,10 +70,10 @@ export default {
         this.isRotating = false // 是否正在旋转
     },
     methods: {
-        back() {
-            this.$router.push({
-                name: "home",
-            })
+        back(e) {
+            e.preventDefault()
+            
+            this.$store.commit("SET_INDEX", 1)
         },
         go() {
             this.index = this.random(PRIZE_LIST - 1)
