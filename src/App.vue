@@ -12,6 +12,7 @@ import Index from "./views/home"
 import Lottery from "./views/lottery"
 import Poster from "./views/poster"
 import { mapState } from 'vuex'
+import API from "./api/index"
 
 
 import wx from "weixin-js-sdk"
@@ -19,7 +20,11 @@ import axios from "axios"
 const jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQQ','onMenuShareWeibo']
 
 axios({
-    url: "http://127.0.0.1:30009/",
+    url: "http://h5.nxsound.com/ih5/20_06lslz/ajax_share.php",
+    headers: {
+        referer: 'http://h5.nxsound.com/ih5',
+        origin: 'http://h5.nxsound.com/'
+    }
 }).then(res => {
     console.log(res.data)
     let { appId, timestamp, nonceStr, signature } = res.data
@@ -35,8 +40,8 @@ axios({
     let dataForWeixin = {
         title: "xxx（昵称）邀请您一起参与2020年里水镇欢乐家庭龙舟赛，答题赢丰厚大奖！",
         desc: "上善里水 龙舟妙会 里水龙舟【家】年华等你来挑战",
-        imgUrl:  "",
-        link:  "",
+        imgUrl: require("./assets/image/1592937717(1).jpg"),
+        link:  "http://h5.nxsound.com/",
     }
 
     wx.ready(() => {

@@ -85,6 +85,8 @@ export default {
     methods: {
         back() {
             this.$store.commit("SET_INDEX", 1)
+            this.$store.commit("SET_IMG1_LOAD",true)
+            this.$store.commit("SET_IMG2_LOAD",true)
         },
         go() {
             this.index = this.random(PRIZE_LIST - 1)

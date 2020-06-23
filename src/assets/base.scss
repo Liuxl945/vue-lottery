@@ -6,8 +6,9 @@ body {
   font-size: 32px;
   width: 100%;
   height: 100%;
-  img{
-    vertical-align: top;
-    pointer-events:none;/* 禁止长按图片保存 */
-  }
+}
+
+img{
+  vertical-align: top;
+  pointer-events:none;/* 禁止长按图片保存 */
 }

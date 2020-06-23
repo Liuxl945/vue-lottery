@@ -81,6 +81,7 @@ export default {
     },
     computed: {
         titleImage() {
+            
             return require(`../assets/image/${this.dataindex}.png`) 
         },
         selectData() {

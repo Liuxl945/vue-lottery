@@ -11,14 +11,17 @@
                 </div>
             </div>
 
-            <div class="sence" v-show="gogogoshow" >
-                <canvas id="gameStage" :width="width" :height="height"></canvas>
+            <div class="sence" v-show="gogogoshow">
+                <div style="height:100%">
+                    <img :style="imgStyle" src="../assets/image/long.jpg" style="min-height:100%">
+                </div>
+                <!-- <canvas id="gameStage" :width="width" :height="height"></canvas> -->
                 <canvas id="gameStage2" :width="width" :height="height"></canvas>
             </div>
 
             <div class="btn-go" @click.prevent="start">
                 <div class="fixed"></div>
-                <img class="animated" src="../assets/image/btn.png" alt="开始">
+                <img ref="img" class="animated" src="../assets/image/btn.png" alt="开始">
             </div>
             
             <div class="right" >
@@ -41,18 +44,18 @@ import myprice from "@/components/myprice"
 import loading from "@/components/loading"
 import { mapState } from "vuex"
 
-let img = new Image()
+// let img = new Image()
 let img1 = new Image()
 let img2 = new Image()
 let img3 = new Image()
-img.src = require("../assets/image/long.jpg")
+// img.src = require("../assets/image/long.jpg")
 img1.src = require("../assets/image/11.png")
 img2.src = require("../assets/image/22.png")
 img3.src = require("../assets/image/33.png")
 
 
 let index_img = 1
-const BOTTOM_PX = 700 //船的位置
+let BOTTOM_PX = 700 //船的位置
 
 export default {
     components: {
@@ -80,6 +83,8 @@ export default {
         this.init()
         this.height = `${window.innerHeight}px`
         this.width = `${window.innerWidth}px`
+        BOTTOM_PX = window.innerHeight/7*4
+        console.log(BOTTOM_PX)
     },
     beforeDestroy() {
         clearInterval(this.loop)
@@ -99,23 +104,27 @@ export default {
             this.gogogoshow = false
 
             setTimeout(() => {
-                this.mycanvas = document.getElementById('gameStage')
+                // this.mycanvas = document.getElementById('gameStage')
                 this.mycanvas2 = document.getElementById('gameStage2')
-                this.ctx = this.mycanvas.getContext('2d')
+                // this.ctx = this.mycanvas.getContext('2d')
                 this.ctx2 = this.mycanvas2.getContext('2d')
                 
-                img.onload = ()=> {
-                    console.log(222)
+                this.$refs.img.onload = () => {
+                    console.log("loading")
                     this.$store.commit("SET_IMG1_LOAD",true)
-                    this.ctx.fillRect(0,0,this.mycanvas.width,this.mycanvas.height)
-                    this.ctx.drawImage(img,this.imageIndex,0)
                 }
+
+                // img.onload = ()=> {
+                //     this.$store.commit("SET_IMG1_LOAD",true)
+                //     this.ctx.fillRect(0,0,this.mycanvas.width,this.mycanvas.height)
+                //     this.ctx.drawImage(img,this.imageIndex,0)
+                // }
                 img1.onload = () => {
                     this.$store.commit("SET_IMG2_LOAD",true)
                     this.ctx2.drawImage(img1,-80,BOTTOM_PX)
                 }
                 
-            }, 20)
+            }, 35)
         },
         cancleRuleModal() {
             this.ruleModal = false
@@ -142,7 +151,7 @@ export default {
             }
         },
         renderCenes() {
-            if(!this.ctx || this.activeIndex === 8){
+            if(!this.ctx2 || this.activeIndex === 8){
                 return
             }
             this.imageIndex -= 20
@@ -156,9 +165,9 @@ export default {
                 clearInterval(this.loop)
                 return
             }
-            this.ctx.fillStyle = "#89ffef"
-            this.ctx.fillRect(0,0,this.mycanvas.width,this.mycanvas.height)
-            this.ctx.drawImage(img,this.imageIndex,0)
+            // this.ctx.fillStyle = "#89ffef"
+            // this.ctx.fillRect(0,0,this.mycanvas.width,this.mycanvas.height)
+            // this.ctx.drawImage(img,this.imageIndex,0)
         },
         renderBoating() {
             let data
@@ -175,6 +184,11 @@ export default {
         },
     },
     computed: {
+        imgStyle() {
+            return `
+                -webkit-transform: translateX(${this.imageIndex}px);
+                    transform: translateX(${this.imageIndex}px);`
+        },
         ...mapState({
             img1load: state => state.img1load,
             img2load: state => state.img2load,
@@ -237,6 +251,7 @@ export default {
         animation: 1.8s linear bigAndSmall195 infinite;
     }
     .bg-1{
+        min-height: 100%;
         position: absolute;
         left: 0;
         top: 50%;
@@ -296,6 +311,8 @@ export default {
             position: absolute;
         }
         #gameStage2{
+            left: 0;
+            top: 0;
             position: absolute;
             z-index: 2;
         }

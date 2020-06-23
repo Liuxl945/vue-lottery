@@ -38,6 +38,7 @@
 <script>
 
 import Share from "../components/share"
+import API from "../api/index"
 
 export default {
     components: {
@@ -48,9 +49,16 @@ export default {
             shareModal: false
         }
     },
+    mounted() {
+        // API.getUserInfo().then(res => {
+        //     console.log(222)
+        // })
+    },
     methods: {
         back() {
             this.$store.commit("SET_INDEX", 1)
+            this.$store.commit("SET_IMG1_LOAD",true)
+            this.$store.commit("SET_IMG2_LOAD",true)
         },
         share() {
             this.shareModal = true

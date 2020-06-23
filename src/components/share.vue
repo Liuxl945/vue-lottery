@@ -1,7 +1,7 @@
 <template>
     <div class="modal" v-if="show" @click="cancle">
         <div class="content">
-            <img @click.stop src="../assets/image/rule.png" alt="">
+            <img @click.stop src="../assets/image/share.png" alt="">
         </div>
     </div>
 </template>
@@ -29,7 +29,11 @@ export default {
     .content{
         width: 95%;
         img{
-            width: 100%;
+            width: 360px;
+            min-height: auto !important;
+            position: absolute;
+            right: 60px;
+            top: 60px;
         }
     }
     .btn-close{
