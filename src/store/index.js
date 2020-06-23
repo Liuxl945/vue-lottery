@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 const state = {
-    indexState: 2,
+    indexState: 1,
     score: 0,
     img1load: false,
     img2load: false

@@ -112,6 +112,10 @@ export default {
                 this.$refs.img.onload = () => {
                     console.log("loading")
                     this.$store.commit("SET_IMG1_LOAD",true)
+
+                    setTimeout(() => {
+                        this.$store.commit("SET_IMG2_LOAD",true)
+                    },2000)
                 }
 
                 // img.onload = ()=> {

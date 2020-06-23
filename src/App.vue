@@ -3,6 +3,11 @@
         <v-index v-if="index === 1" @change="change"></v-index>
 		<v-lottery v-if="index === 2"></v-lottery>
 		<v-poster v-if="index === 3"></v-poster>
+        <audio src="./assets/music.mp3" ref="audio" autoplay></audio>
+
+        <div class="music-icon" :class="musicState ? 'rotate' : ''" @click="playMusic">
+            <img src="./assets/image/music.png" alt="">
+        </div>
     </div>
 </template>
 
@@ -21,10 +26,6 @@ const jsApiList = ['onMenuShareAppMessage', 'onMenuShareTimeline', 'onMenuShareQ
 
 axios({
     url: "http://h5.nxsound.com/ih5/20_06lslz/ajax_share.php",
-    headers: {
-        referer: 'http://h5.nxsound.com/ih5',
-        origin: 'http://h5.nxsound.com/'
-    }
 }).then(res => {
     console.log(res.data)
     let { appId, timestamp, nonceStr, signature } = res.data
@@ -91,12 +92,23 @@ export default {
     },
     data() {
         return {
-			
+			musicState: true
         }
+    },
+    mounted() {
+
     },
     methods: {
         change(index) {
             this.index = index
+        },
+        playMusic() {
+            this.musicState = !this.musicState
+            if(!this.musicState){
+                this.$refs.audio.pause()
+            }else{
+                this.$refs.audio.play()
+            }
         }
 	},
 	computed: {
@@ -108,9 +120,39 @@ export default {
 </script>
 
 <style lang="scss">
+@keyframes rotate{
+    0%{
+        transform: rotate(0);
+      }
+    50%{
+    	transform:rotate(180deg);
+    }
+    100%{
+         transform: rotate(360deg);
+    	}
+	}
+ 
+.rotate{
+    // transition: 0.5s;
+    // transform-origin: 30px 30px;  
+    animation: rotate 5s linear infinite;  /*开始动画后无限循环，用来控制rotate*/
+}
+
 #app{
 	height: 100%;
-	width: 100%;
+    width: 100%;
+    .music-icon{
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 100;
+        margin: 20px;
+        img{
+            width: 100%;
+        }
+    }
 }
 @import url("./assets/reset.scss");
 @import url("./assets/base.scss");
