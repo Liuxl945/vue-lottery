@@ -1,29 +1,32 @@
 <template>
     <div id="home">
         <div class="bg">
-            <img class="bg-1" src="../assets/image/index-bg.jpg">
-            <div class="logo">
-                <img class="animated"  src="../assets/image/logo.png" alt="logo" srcset="">
+            <div v-if="!gogogoshow">
+                <img class="bg-1" src="../assets/image/index-bg.jpg">
+                <div class="logo">
+                    <img class="animated"  src="../assets/image/logo.png" alt="logo" srcset="">
+                </div>
             </div>
 
             <div class="sence" v-show="gogogoshow" >
                 <canvas id="gameStage" width="750px" height="1334px"></canvas>
+                <canvas id="gameStage2" width="750px" height="1334px"></canvas>
             </div>
 
-            <div class="btn-go" @touchstart="start" @touchend="end">
+            <div class="btn-go" @touchstart.prevent="start" @touchend.prevent="end">
                 <div class="fixed"></div>
                 <img class="animated" src="../assets/image/btn.png" alt="开始">
             </div>
 
             
-            <div class="right">
+            <div class="right" >
                 <div class="btn">我的奖品</div>
                 <div class="btn" @click="ruleModal = true ">活动规则</div>
             </div>
         </div>
 
         <v-rule :show="ruleModal" :cancle="cancleRuleModal"></v-rule>
-        <v-question :show="questionModal" :cancle="cancleQuestionModal"></v-question>
+        <v-question :show="questionModal" :dataindex="activeIndex" :cancle="cancleQuestionModal"></v-question>
     </div>
     
 </template>
@@ -31,9 +34,19 @@
 <script>
 import rule from "@/components/rule"
 import question from "@/components/question"
+import axios from "axios"
 
 let img = new Image()
+let img1 = new Image()
+let img2 = new Image()
+let img3 = new Image()
 img.src = require("../assets/image/long.png")
+img1.src = require("../assets/image/11.png")
+img2.src = require("../assets/image/22.png")
+img3.src = require("../assets/image/33.png")
+
+let index_img = 1
+const BOTTOM_PX = 600 //船的位置
 
 export default {
     components: {
@@ -57,14 +70,22 @@ export default {
 
         setTimeout(() => {
             this.mycanvas = document.getElementById('gameStage')
+            this.mycanvas2 = document.getElementById('gameStage2')
             this.ctx = this.mycanvas.getContext('2d')
+            this.ctx2 = this.mycanvas2.getContext('2d')
             img.onload = ()=> {
-                
                 this.ctx.drawImage(img,this.imageIndex,100)
                 this.ctx.drawImage(img,this.imageIndex,0)
             }
+            img1.onload = () => {
+                this.ctx2.drawImage(img1,-80,BOTTOM_PX)
+            }
             
         }, 20)
+    },
+    beforeDestroy() {
+        clearInterval(this.loop)
+        clearInterval(this.loop2)
     },
     methods: {
         cancleRuleModal() {
@@ -74,40 +95,55 @@ export default {
             this.questionModal = false
         },
         start(e) {
-            e.preventDefault()
             if(!this.gogogoshow){
                 this.gogogoshow = true
-                this.gogogo()
+                this.renderCenes()
+                clearInterval(this.loop2)
+                this.loop2 = setInterval(() => {
+                    index_img++
+                    this.renderBoating()
+                },200)
+
                 return
             }else{
                 clearInterval(this.loop) //再次清空定时器，防止重复注册定时器
                 this.loop = setInterval(() => {
-                    this.gogogo()
+                    this.renderCenes()
                 },20)
             }
         },
         end(e) {
-            e.preventDefault()
             clearInterval(this.loop) //清空定时器，防止重复注册定时器
         },
-        gogogo() {
+        renderCenes() {
             if(!this.ctx || this.activeIndex === 6){
                 return
             }
-            this.imageIndex -= 10
+            this.imageIndex -= 20
             
-            if(this.imageIndex % 790 === 0){
+            if(this.imageIndex % 800 === 0){
                 this.activeIndex ++
-                alert(`场景${this.activeIndex}`)
+                // alert(`场景${this.activeIndex}`)
                 this.questionModal = true
                 clearInterval(this.loop)
                 return
             }
 
-
-            // this.cxt.fillRect(0,0,this.mycanvas.width,this.mycanvas.height)
             this.ctx.drawImage(img,this.imageIndex,0)
-        }
+        },
+        renderBoating() {
+            let data
+            if(index_img === 1){
+                data = img1
+            }else if(index_img === 2){
+                data = img2
+            }else if(index_img === 3){
+                data = img3
+                index_img = 0
+            }
+
+            this.ctx2.drawImage(data,-80,BOTTOM_PX)
+        },
     }
 }
 </script>
@@ -157,7 +193,7 @@ export default {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 40px;
+        top: 60px;
     }
     .animated{
         animation-duration: 1s;
@@ -219,9 +255,15 @@ export default {
         width: 100%;
         height: 100%;
         position: absolute;
-        background: #e74244;
         top: 0;
         left: 0;
+        #gameStage{
+            position: absolute;
+        }
+        #gameStage2{
+            position: absolute;
+            z-index: 2;
+        }
     }
 }
 </style>

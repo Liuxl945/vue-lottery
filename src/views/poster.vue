@@ -1,6 +1,6 @@
 <template>
     <div class="poster">
-        <div class="poster-bg">
+        <div class="poster-bg" >
             <img class="bg-img" src="../assets/image/poster.jpg" alt="">
             <div class="wx-content">
                 <div class="top">
@@ -20,13 +20,41 @@
                     <p>成为了里水线上欢乐家庭赛龙舟文化传承的“知识龙王”</p>
                 </div>
             </div>
+
+            <div class="bottom-btn">
+                <div class="share" @click.prevent="share"></div>
+                <div class="back" @click.prevent="back"></div>
+            </div>
         </div>
+
+        <v-share :show="shareModal" :cancle="cancleModal"></v-share>
     </div>
 </template>
 
 <script>
+
+import Share from "../components/share"
+
 export default {
-    
+    components: {
+        "v-share": Share
+    },
+    data() {
+        return {
+            shareModal: false
+        }
+    },
+    methods: {
+        back() {
+            this.$store.commit("SET_INDEX", 1)
+        },
+        share() {
+            this.shareModal = true
+        },
+        cancleModal() {
+            this.shareModal = false
+        }
+    }
 }
 </script>
 
@@ -94,6 +122,20 @@ export default {
         width: 100%;
         font-size: 28px;
         text-align: center;
+    }
+}
+.bottom-btn{
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    height: 88px;
+    display: flex;
+    padding: 0 100px;
+    .share{
+        flex:1;
+    }
+    .back{
+        flex: 1;
     }
 }
 </style>

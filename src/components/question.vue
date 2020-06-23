@@ -35,6 +35,9 @@
 </template>
 
 <script>
+
+const data = require("./question.json")
+
 export default {
     props: {
         show: {
@@ -46,6 +49,10 @@ export default {
             default: () => {
                 
             }
+        },
+        dataindex: {
+            type: Number,
+            default: 1
         }
     },
     data() {
@@ -55,98 +62,12 @@ export default {
             index: 0,
             successShow: false,
             errorShow: false,
-            questionData: [
-                {
-                    title: "早在2007年，南海龙舟说唱就被列入佛山市非物质文化遗产名录，目前里水龙舟说唱的传承人是谁？",
-                    isAnser: false,
-                    answer: [{
-                        "tips":"A",
-                        "name":"蒋延广",
-                        "yes": true
-                    },{
-                        "tips":"B",
-                        "name":"黄鲁逸",
-                        "yes": false
-                    },{
-                        "tips":"C",
-                        "name":"蒋干文",
-                        "yes": false
-                    }]
-                },
-                {
-                    title: "早在2007年，南海龙舟说唱非物质文化非物质文化非物质文化就被列入佛山市2非物质文化遗产名录，目前里水龙舟说唱的传承人是谁？",
-                    isAnser: false,
-                    answer: [{
-                        "tips":"A",
-                        "name":"蒋延广11111",
-                        "yes": true
-                    },{
-                        "tips":"B",
-                        "name":"黄鲁逸11111",
-                        "yes": false
-                    },{
-                        "tips":"C",
-                        "name":"蒋干文11111",
-                        "yes": false
-                    }]
-                },
-                {
-                    title: "早在2007年，南海龙舟说传承人是谁？",
-                    isAnser: false,
-                    answer: [{
-                        "tips":"A",
-                        "name":"蒋延广22222",
-                        "yes": true
-                    },{
-                        "tips":"B",
-                        "name":"黄鲁逸22222",
-                        "yes": false
-                    },{
-                        "tips":"C",
-                        "name":"蒋干文22222",
-                        "yes": false
-                    }]
-                },
-                {
-                    title: "早在2录，目前里水龙舟说唱的传承人是谁？",
-                    isAnser: false,
-                    answer: [{
-                        "tips":"A",
-                        "name":"蒋延广333333",
-                        "yes": true
-                    },{
-                        "tips":"B",
-                        "name":"黄鲁逸333333",
-                        "yes": false
-                    },{
-                        "tips":"C",
-                        "name":"蒋干文333333",
-                        "yes": false
-                    }]
-                },
-                {
-                    title: "早在2007年，南海龙舟说唱就被舟说唱的传承人是谁？",
-                    isAnser: false,
-                    answer: [{
-                        "tips":"A",
-                        "name":"蒋延广444444",
-                        "yes": true
-                    },{
-                        "tips":"B",
-                        "name":"黄鲁逸444444",
-                        "yes": false
-                    },{
-                        "tips":"C",
-                        "name":"蒋干文444444",
-                        "yes": false
-                    }]
-                }
-            ]
+            questionData: data
         }
     },
     computed: {
         selectData() {
-            return this.questionData[this.index]
+            return this.questionData[this.dataindex][this.index]
         }
     },
     methods: {
@@ -160,8 +81,7 @@ export default {
                 return
             }
             setTimeout(() => {
-                this.index ++
-
+                this.closeModal()
             },200)
         },
         closeModal() {

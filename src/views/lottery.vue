@@ -1,7 +1,7 @@
 <template>
     <div class="index">
         <div class="index-bg">
-            <div class="back" @click="back"></div>
+            <div class="back" @click.prevent="back"></div>
             <img class="bg-img" src="../assets/image/lottery-bg.jpg" alt="">
 
             <div class="content">
@@ -70,9 +70,7 @@ export default {
         this.isRotating = false // 是否正在旋转
     },
     methods: {
-        back(e) {
-            e.preventDefault()
-            
+        back() {
             this.$store.commit("SET_INDEX", 1)
         },
         go() {
