@@ -38,13 +38,18 @@
             <div class="again" @click="again"></div>
             <div class="poster" @click="poster"></div>
         </div>
+
+        <audio src="../assets/error.mp3" ref="error"></audio>
+        <audio src="../assets/right.mp3" ref="right"></audio>
     </div>
 </template>
 
 <script>
 
 const data = require("./question.json")
+import API from "../api/index"
 import { mapState } from 'vuex'
+
 
 export default {
     props: {
@@ -93,6 +98,13 @@ export default {
     },
     methods: {
         selectAnswer(yes) {
+            if(yes){
+                this.$store.commit("SET_SCORE",this.score + 10)
+                this.$refs.right.play()
+            }else{
+                this.$refs.error.play()
+            }
+
             let index = this.index
             if(this.questionData[this.dataindex][index].isAnser){
                 return
@@ -102,14 +114,32 @@ export default {
             
             if(this.dataindex === Object.keys(this.questionData).length){
                 
-                // 场景结束 计算分数
-                if(this.score >= 60){
-                    // 成功
-                    this.successShow = true
-                }else{
-                    // 失败
-                    this.errorShow = true
-                }
+                API.getAjax({
+                    type: "save_score",
+                    score: this.score
+                }).then(res => {
+                    
+                    this.$store.commit("SET_DEFEAT_NUM",res.data.defeat_num)
+                    this.$store.commit("SET_CODE",res.data.code)
+
+                    // 场景结束 计算分数
+                    if(this.score >= 60){
+                        // 成功
+                        this.successShow = true
+                    }else{
+                        // 失败
+                        this.errorShow = true
+                    }
+                },() => {
+                    // 场景结束 计算分数
+                    if(this.score >= 60){
+                        // 成功
+                        this.successShow = true
+                    }else{
+                        // 失败
+                        this.errorShow = true
+                    }
+                })
 
                 return
             }
@@ -117,9 +147,6 @@ export default {
                 this.cancle()
             },1000)
             
-            if(yes){
-                this.$store.commit("SET_SCORE",this.score + 10)
-            }
         },
         closeModal() {
             this.cancle()

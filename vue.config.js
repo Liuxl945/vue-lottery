@@ -5,6 +5,7 @@ module.exports = {
             ]
         }
     },
+    publicPath: ""
     // chainWebpack: config => {
     //     const imagesRule = config.module.rule('images')
     //     imagesRule

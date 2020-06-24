@@ -23,10 +23,11 @@
 <script>
 
 import lotteryResult from "../components/lottery-result"
+import API from "../api/index"
+import { mapState } from 'vuex'
 
 const PRIZE_LIST = 8
 const CIRCLE_ANGLE = 360
-
 
 
 export default {
@@ -89,8 +90,24 @@ export default {
             this.$store.commit("SET_IMG1_LOAD",true)
             this.$store.commit("SET_IMG2_LOAD",true)
         },
-        go() {
-            this.index = this.random(PRIZE_LIST - 1)
+        async go() {
+            let res = await API.getAjax({
+                type: "rotate",
+                code: this.priceCode  //【记录分数接口返回】
+            }).catch(err => {
+                this.index = 7
+                this.rotating() // 开始旋转
+                return
+            })
+
+            if(!res.data){
+                this.index = 7
+                this.rotating() // 开始旋转
+                return
+            }
+
+            this.index = res.data.prize_id
+            this.$store.commit("SET_PRIZE_ID",res.data.prize_id)
             this.rotating() // 开始旋转
         },
         random (max, min = 0) {
@@ -127,7 +144,10 @@ export default {
             let angle = -(CIRCLE_ANGLE / PRIZE_LIST / 2)
             return `-webkit-transform: rotate(${angle}deg);
                       transform: rotate(${angle}deg);`
-        }
+        },
+        ...mapState({
+            priceCode: state => state.code,
+        })
     }
 }
 </script>
@@ -155,7 +175,7 @@ export default {
     }
     .content{
         position: absolute;
-        top: 50%;
+        top: 56%;
         left: 50%;
         transform: translate(-50%,-40%);
         .go{

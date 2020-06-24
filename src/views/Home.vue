@@ -1,11 +1,11 @@
 <template>
     <div id="home">
 
-        <v-loading v-if="!(img1load && img2load)"></v-loading>
+        <v-loading v-if="!(img1load && img2load)" :progress="progress"></v-loading>
 
         <div class="bg">
             <div v-if="!gogogoshow" style="height:100%">
-                <img class="bg-1" src="../assets/image/index-bg.jpg">
+                <img class="bg-1" src="../assets/image/index-bg1.jpg">
                 <div class="logo">
                     <img class="animated"  src="../assets/image/logo.png" alt="logo" srcset="">
                 </div>
@@ -21,17 +21,18 @@
 
             <div class="btn-go" @click.prevent="start">
                 <div class="fixed"></div>
-                <img ref="img" class="animated" src="../assets/image/btn.png" alt="开始">
+                <img ref="img" v-show="!activeIndex" class="animated" src="../assets/image/btn.png" alt="开始">
+                <img ref="img" v-show="activeIndex" class="animated" src="../assets/image/jixu.png" alt="开始">
             </div>
             
             <div class="right" >
-                <div class="btn" @click.prevent="myPriceShow">我的奖品</div>
+                <div class="btn" @click.prevent="myPriceShowFunc">我的奖品</div>
                 <div class="btn" @click="ruleModal = true ">活动规则</div>
             </div>
         </div>
 
         <v-rule :show="ruleModal" :cancle="cancleRuleModal"></v-rule>
-        <v-myprice :show="mypriceShow" :cancle="mypriceShowShowHide" :priceIndex="mypriceId"></v-myprice>
+        <v-myprice :show="mypriceShow && prize_id" :cancle="mypriceShowShowHide" :priceIndex="prize_id"></v-myprice>
         <v-question :show="questionModal" :dataindex="activeIndex" :cancle="cancleQuestionModal" :playagain="init"></v-question>
     </div>
     
@@ -43,6 +44,8 @@ import question from "@/components/question"
 import myprice from "@/components/myprice"
 import loading from "@/components/loading"
 import { mapState } from "vuex"
+import API from "../api/index"
+import axios from "axios"
 
 // let img = new Image()
 let img1 = new Image()
@@ -52,7 +55,6 @@ let img3 = new Image()
 img1.src = require("../assets/image/11.png")
 img2.src = require("../assets/image/22.png")
 img3.src = require("../assets/image/33.png")
-
 
 let index_img = 1
 let BOTTOM_PX = 700 //船的位置
@@ -66,7 +68,6 @@ export default {
     },
     data() {
         return {
-            mypriceId: 1,
             mypriceShow: false, //我的奖品
             ruleModal: false,   //规则
             questionModal: false,
@@ -76,23 +77,44 @@ export default {
             gogogoshow: false,
             activeIndex: 0,
             height: "1334px",
-            width: "750px"
+            width: "750px",
+            progress: "0%"
         }
     },
     mounted() {
-        this.init()
-        this.height = `${window.innerHeight}px`
-        this.width = `${window.innerWidth}px`
-        BOTTOM_PX = window.innerHeight/7*4
-        console.log(BOTTOM_PX)
+        API.getAjax({
+            type: "my_prize",
+        }).then( res => {
+
+            if(res.data.status === 1){
+                this.$store.commit("SET_PRIZE_ID",res.data.data.prize_id)
+            }
+        })
+
+        API.getAjax({
+            type: "getUserInfo",
+        }).then( res => {
+            this.$store.commit("SET_USER_INFO",res.data.data)
+        })
+        
+        setTimeout(() => {
+            this.init()
+            this.height = `${window.innerHeight}px`
+            this.width = `${window.innerWidth}px`
+            BOTTOM_PX = window.innerHeight/7*4
+        },35)
+        
     },
     beforeDestroy() {
         clearInterval(this.loop)
         clearInterval(this.loop2)
     },
     methods: {
-        myPriceShow() {
+        myPriceShowFunc() {
             this.mypriceShow = true
+            if(!this.prize_id){
+                alert("暂无奖品")
+            }
         },
         mypriceShowShowHide() {
             this.mypriceShow = false
@@ -103,13 +125,29 @@ export default {
             this.imageIndex = 0
             this.gogogoshow = false
 
+            axios({
+                url: "http://h5.nxsound.com/ih5/20_06lslz/img/long.15a822d5.jpg",
+                onDownloadProgress(progress) {
+                    this.progress = (Math.round(progress.loaded / progress.total * 100) + '%')
+                }
+            }).then(res => {
+                this.$store.commit("SET_IMG1_LOAD",true)
+                this.$store.commit("SET_IMG2_LOAD",true)
+            }).catch(() => {
+                setTimeout(() => {
+                    this.$store.commit("SET_IMG1_LOAD",true)
+                    this.$store.commit("SET_IMG2_LOAD",true)
+                },5000)
+            })
+
             setTimeout(() => {
                 // this.mycanvas = document.getElementById('gameStage')
                 this.mycanvas2 = document.getElementById('gameStage2')
                 // this.ctx = this.mycanvas.getContext('2d')
                 this.ctx2 = this.mycanvas2.getContext('2d')
                 
-                this.$refs.img.onload = () => {
+                this.$refs.img.onload = (e) => {
+                    
                     console.log("loading")
                     this.$store.commit("SET_IMG1_LOAD",true)
 
@@ -128,7 +166,7 @@ export default {
                     this.ctx2.drawImage(img1,-80,BOTTOM_PX)
                 }
                 
-            }, 35)
+            }, 300)
         },
         cancleRuleModal() {
             this.ruleModal = false
@@ -144,14 +182,14 @@ export default {
                 this.loop2 = setInterval(() => {
                     index_img++
                     this.renderBoating()
-                },200)
+                },300)
 
                 return
             }else{
                 clearInterval(this.loop) //再次清空定时器，防止重复注册定时器
                 this.loop = setInterval(() => {
                     this.renderCenes()
-                },20)
+                },60)
             }
         },
         renderCenes() {
@@ -196,6 +234,7 @@ export default {
         ...mapState({
             img1load: state => state.img1load,
             img2load: state => state.img2load,
+            prize_id: state => state.prize_id,
         })
     }
 }
@@ -246,7 +285,7 @@ export default {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 80px;
+        top: 120px;
     }
     .animated{
         animation-duration: 1s;
@@ -264,21 +303,21 @@ export default {
     }
     .btn-go{
         z-index: 4;
-        width: 178px * 1.17;
-        height: 92px * 1.17;
+        width: 178px * 1.5;
+        height: 92px * 1.5;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         bottom: 120px;
         .fixed{
             position: absolute;
-            width: 178px * 1.17;
-            height: 92px * 1.17;
+            width: 178px * 1.5;
+            height: 92px * 1.5;
             z-index: 10;
         }
         img{
-            width: 178px * 1.17;
-            height: 92px * 1.17;
+            width: 178px * 1.5;
+            height: 92px * 1.5;
         }
     }
     .right{

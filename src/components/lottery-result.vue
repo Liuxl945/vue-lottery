@@ -4,9 +4,9 @@
             <img v-if="priceIndex === 0" src="../assets/image/first_prize.png" alt="一等奖">
             <img v-if="priceIndex === 1" src="../assets/image/second_prize.png" alt="二等奖">
             <div class="form">
-                <input type="text" value="" placeholder="姓名">
-                <input type="text" value="" placeholder="电话">
-                <input type="text" value="" placeholder="邮寄地址">
+                <input v-model="username" type="text" placeholder="姓名">
+                <input v-model="phone" type="text" placeholder="电话">
+                <input v-model="address" type="text" placeholder="邮寄地址">
             </div>
             <div class="submit" @click="submitInfomation"></div>
         </div>
@@ -51,6 +51,9 @@ export default {
     data() {
         return {
             shareBg: false,
+            username: "",
+            phone: "",
+            address: ""
         }
     },
     methods: {
@@ -60,8 +63,31 @@ export default {
         share() {
             this.shareBg = true
         },
-        submitInfomation() {
-            console.log(111)
+        async submitInfomation() {
+            
+            if(!this.username){
+                alert("请填写用户名")
+                return
+            }
+            if(!this.phone){
+                alert("请填写手机")
+                return
+            }
+            if(!this.address){
+                alert("请填写地址")
+                return
+            }
+
+            let res = await API.getAjax({
+                type: "save_info",
+                username: this.username,
+                phone: this.phone,
+                address: this.address
+            })
+
+            if(res.data.status === 1){
+                alert("信息提交成,工作人员会第一时间给您发货")
+            }
         }
     },
     computed: {

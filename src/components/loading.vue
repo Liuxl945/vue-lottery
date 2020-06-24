@@ -22,8 +22,21 @@
         </div>
 
         <p>数据加载中</p>
+
+        <!-- <p>{{progress}}</p> -->
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        progress: {
+            type: String,
+            default: "0%"
+        }
+    }
+}
+</script>
 
 <style lang="scss" scoped>
 
@@ -39,6 +52,7 @@
     top: 0;
     bottom: 0;
     background: rgb(133, 225, 240);
+    color: #fff;
 
     .loading3{
         width:60px;

@@ -5,16 +5,16 @@
             <div class="wx-content">
                 <div class="top">
                     <div class="avatar">
-                        <img src="../assets/image/btn.png" alt="">
+                        <img :src="userInfo ? userInfo.headimgurl :defaultAvatar" alt="">
                     </div>
-                    <p>微信ID</p>
+                    <p v-if="userInfo">{{userInfo.nickname}}</p>
                 </div>
                 <div class="center">
                     <div class="left">
                         <p>成功战胜</p>
                         <p>了全国</p>
                     </div>
-                    <div class="right">565684位人</div>
+                    <div class="right">{{defeat_num || 0}}位人</div>
                 </div>
                 <div class="bottom">
                     <p>成为了里水线上欢乐家庭赛龙舟文化传承的“知识龙王”</p>
@@ -38,7 +38,7 @@
 <script>
 
 import Share from "../components/share"
-import API from "../api/index"
+import { mapState } from "vuex"
 
 export default {
     components: {
@@ -46,13 +46,11 @@ export default {
     },
     data() {
         return {
-            shareModal: false
+            shareModal: false,
+            defaultAvatar: require("../assets/image/btn.png")
         }
     },
     mounted() {
-        // API.getUserInfo().then(res => {
-        //     console.log(222)
-        // })
     },
     methods: {
         back() {
@@ -67,6 +65,12 @@ export default {
         cancleModal() {
             this.shareModal = false
         }
+    },
+    computed: {
+        ...mapState({
+            userInfo: state => state.userInfo,
+            defeat_num: state => state.defeat_num,
+        })
     }
 }
 </script>
@@ -83,6 +87,7 @@ export default {
     }
     .bg-img{
         width: 100%;
+        min-height: 100%;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -96,7 +101,8 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 420px;
+    top: 50%;
+    transform: translateY(-80%);
     .top{
         padding-bottom: 10px;
         display: flex;
