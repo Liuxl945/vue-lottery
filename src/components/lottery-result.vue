@@ -30,7 +30,7 @@
 
         <div class="msg-ok" v-if="msgInfoShow">
             <img src="../assets/image/submit_ok.png" alt="" srcset="">
-            <div class="close" @click="cancle"></div>
+            <div class="close" @click="cancle();msgInfoShow = false"></div>
         </div>
     </div>
 </template>
@@ -66,7 +66,7 @@ export default {
         }
     },
     mounted() {
-        // this.msgInfoShow = true
+        this.msgInfoShow = false
     },
     methods: {
         poster() {
@@ -82,8 +82,9 @@ export default {
                 alert("请填写用户名")
                 return
             }
-            if(!this.phone){
-                alert("请填写手机")
+            if(!(/^1[3456789]\d{9}$/.test(this.phone))){ 
+                alert("请填写正确的手机号")
+                
                 return
             }
             if(!this.address){
@@ -102,10 +103,7 @@ export default {
                 // 信息提交成功
                 this.msgInfoShow = true
             }
-
-            if(res.data.status === 1){
-                alert("信息提交成,工作人员会第一时间给您发货")
-            }
+            
         }
     },
     computed: {

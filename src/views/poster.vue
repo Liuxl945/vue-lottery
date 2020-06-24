@@ -30,16 +30,17 @@
                 <img src="../assets/image/poster.jpg" alt="" srcset="">
             </div>
             
-
-            <div class="bottom-btn">
-                <div class="share" @click.prevent="share">
-                    <img src="../assets/image/share-btn.png" alt="" srcset="">
-                </div>
-                <div class="back" @click.prevent="back">
-                    <img src="../assets/image/back-btn.png" alt="">
-                </div>
+            <div class="share-tips">
+                <p>长按保存海报并分享到朋友圈</p>
             </div>
-            
+        </div>
+        <div class="bottom-btn">
+            <div class="share" @click.prevent="share">
+                <img src="../assets/image/share-btn.png" alt="" srcset="">
+            </div>
+            <div class="back" @click.prevent="back">
+                <img src="../assets/image/back-btn.png" alt="">
+            </div>
         </div>
 
         <div id="saveImage">
@@ -56,23 +57,6 @@ import Share from "../components/share"
 import { mapState } from "vuex"
 import html2canvas from "html2canvas"
 
-
-function GETDPI() {
-    var arrDPI = new Array;
-    if (window.screen.deviceXDPI) {
-        arrDPI[0] = window.screen.deviceXDPI;
-        arrDPI[1] = window.screen.deviceYDPI;
-    }
-    else {
-        var tmpNode = document.createElement("DIV");
-        tmpNode.style.cssText = "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
-        document.body.appendChild(tmpNode);
-        arrDPI[0] = parseInt(tmpNode.offsetWidth);
-        arrDPI[1] = parseInt(tmpNode.offsetHeight);
-        tmpNode.parentNode.removeChild(tmpNode);
-   }
-   return arrDPI;
-}
 
 export default {
     components: {
@@ -98,8 +82,8 @@ export default {
             
             setTimeout(async () => {
                 let canvas = await html2canvas(document.querySelector("#bgImgBox"),{
-                    width: width/dpi/2,
-                    height: height/dpi/2
+                    // width: width/dpi/2,
+                    // height: height/dpi/2
                 })
                 
                 var dataUrl = canvas.toDataURL("jpeg")
@@ -107,12 +91,15 @@ export default {
             },1000)
         },
         loading() {
+            console.log(1)
             this.isloading = true
         },
         loading1() {
+            console.log(2)
             this.isloading1 = true
         },
         loading2() {
+            console.log(3)
             this.isloading2 = true
         },
 
@@ -269,8 +256,20 @@ export default {
     left: 50%;
     transform: translateX(-50%);
 }
+.share-tips{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, .4);
+    color:rgb(250, 79, 52);
+    z-index: 120;
+    bottom: 4%;
+    white-space: nowrap;
+    padding: 10px 20px ;
+    border-radius: 100px;
+}
 .bottom-btn{
-    z-index: 11;
+    z-index: 110;
     position: absolute;
     bottom: 100px;
     width: 100%;

@@ -2,14 +2,15 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 const state = {
-    indexState: 3, //哪个场景
+    indexState: 1, //哪个场景
     defeat_num: 0, //【击败多少人】
     code: "", //【code码 抽奖接口需要提供该code码】
     prize_id: undefined, //【code码 抽奖接口需要提供该code码】
     score: 0, //分数
     img1load: false,
     img2load: false,
-    userInfo: undefined
+    userInfo: undefined,
+    need_input: undefined
 }
 
 const mutations = {
@@ -36,6 +37,9 @@ const mutations = {
     },
     ["SET_USER_INFO"](state, info) {
         state.userInfo = info
+    },
+    ["SET_NEED_INPUT"](state, info) {
+        state.need_input = info
     }
 }
 

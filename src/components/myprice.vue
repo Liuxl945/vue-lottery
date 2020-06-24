@@ -4,12 +4,13 @@
             <img v-if="priceIndex === 0" src="../assets/image/mine_first_prize.png" alt="一等奖">
             <img v-if="priceIndex === 1" src="../assets/image/mine_second_prize.png" alt="二等奖">
             <div class="form">
-                <input type="text" value="" placeholder="姓名" readonly>
-                <input type="text" value="" placeholder="电话" readonly>
-                <input type="text" value="" placeholder="邮寄地址" readonly>
+                <input type="text" v-model="username" placeholder="姓名" :readonly="need_input !== 1">
+                <input type="text" v-model="phone" placeholder="电话" :readonly="need_input !== 1">
+                <input type="text" v-model="address" placeholder="邮寄地址" :readonly="need_input !== 1">
             </div>
-            <div class="submit" @click="cancle()"></div>
+            <div class="submit" @click="changeCancle" :class="need_input === 1 ? 'show': ''">修改</div>
         </div>
+
 
         <div class="money" v-if="priceIndex !== 1 && priceIndex !== 0 && !shareBg">
             <div class="position" v-if="priceIndex === 3 || priceIndex === 6 || priceIndex === 5 || priceIndex === 4 ">
@@ -31,6 +32,10 @@
 </template>
 
 <script>
+
+import { mapState } from "vuex"
+import API from "../api/index"
+
 export default {
     props: {
         show: {
@@ -46,14 +51,49 @@ export default {
         priceIndex: {
             type: Number,
             default: 2
-        }
+        },
+
     },
     data() {
         return {
             shareBg: false,
+            username: "",
+            phone: "",
+            address: ""
         }
     },
     methods: {
+        changeCancle() {
+            if(this.need_input === 1){
+
+                if(!this.username){
+                    alert("请填写用户名")
+                    return
+                }
+                if(!this.phone){
+                    alert("请填写手机")
+                    return
+                }
+                if(!this.address){
+                    alert("请填写地址")
+                    return
+                }
+
+                 API.getAjax({
+                    type: "save_info",
+                    username: this.username,
+                    phone: this.phone,
+                    address: this.address
+                }).then(res => {
+                    if(res.data.status === 1){
+                        // 信息提交成功
+                        alert("提交成功")
+                    }
+                })
+            }else{
+                this.cancle()
+            }
+        },
         poster() {
             this.$store.commit("SET_INDEX", 3)
         },
@@ -80,7 +120,10 @@ export default {
             if(priceIndex === 4){
                 return require("../assets/image/1r.png")
             }
-        }
+        },
+        ...mapState({
+            need_input: state => state.need_input,
+        })
     },
     watch: {
         show() {
@@ -112,12 +155,25 @@ export default {
 .first_prize{
     position: relative;
     .submit{
+        opacity: 0;
+        background: rgb(240, 127, 67);
+        border-radius: 10px;
         position: absolute;
         bottom: 0;
         left: 50%;
         width: 300px;
         height: 88px;
         transform: translateX(-50%);
+        box-shadow: -5px 5px rgb(238, 92, 61);
+        text-align: center;
+        text-align: center;
+        line-height: 88px;
+        font-weight: 600;
+        color: #fff;
+        font-size: 32px;
+    }
+    .show{
+        opacity: 1 !important;
     }
     .form{
         width: 100%;

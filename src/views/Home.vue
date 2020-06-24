@@ -1,11 +1,11 @@
 <template>
     <div id="home">
 
-        <v-loading v-if="!(img1load && img2load)" :progress="progress"></v-loading>
+        <v-loading v-if="!img1load" :progress="progress"></v-loading>
 
         <div class="bg">
             <div v-if="!gogogoshow" style="height:100%">
-                <img class="bg-1" src="../assets/image/index-bg1.jpg">
+                <img @load="loading2" class="bg-1" src="../assets/image/index-bg1.jpg">
                 <div class="logo">
                     <img class="animated"  src="../assets/image/logo.png" alt="logo" srcset="">
                 </div>
@@ -13,7 +13,7 @@
 
             <div class="sence" v-show="gogogoshow">
                 <div style="height:100%">
-                    <img :style="imgStyle" src="../assets/image/long1.jpg" style="min-height:100%">
+                    <img @load="loading1" :style="imgStyle" src="../assets/image/long1.jpg" style="min-height:100%">
                 </div>
                 <!-- <canvas id="gameStage" :width="width" :height="height"></canvas> -->
                 <canvas id="gameStage2" :width="width" :height="height"></canvas>
@@ -21,8 +21,8 @@
 
             <div class="btn-go" @click.prevent="start">
                 <div class="fixed"></div>
-                <img ref="img" v-show="!activeIndex" class="animated" src="../assets/image/btn.png" alt="开始">
-                <img ref="img" v-show="activeIndex" class="animated" src="../assets/image/jixu.png" alt="开始">
+                <img ref="img" @load="loading3" v-show="!activeIndex" class="animated" src="../assets/image/btn.png" alt="开始">
+                <img ref="img" @load="loading4" v-show="activeIndex" class="animated" src="../assets/image/jixu.png" alt="开始">
             </div>
             
             <div class="right" >
@@ -32,7 +32,7 @@
         </div>
 
         <v-rule :show="ruleModal" :cancle="cancleRuleModal"></v-rule>
-        <v-myprice :show="mypriceShow && !!prize_id" :cancle="mypriceShowShowHide" :priceIndex="prize_id"></v-myprice>
+        <v-myprice :show="mypriceShow && (!!prize_id || prize_id === 0 )" :cancle="mypriceShowShowHide" :priceIndex="prize_id"></v-myprice>
         <v-question :show="questionModal" :dataindex="activeIndex" :cancle="cancleQuestionModal" :playagain="init"></v-question>
     </div>
     
@@ -102,17 +102,45 @@ export default {
         clearInterval(this.loop2)
     },
     methods: {
+        loading1() {
+            this.isload1 = true
+            if(this.isload2 && this.isload3 && this.isload4){
+                this.$store.commit("SET_IMG1_LOAD",true)
+            }
+        },
+        loading2() {
+            this.isload2 = true
+            if(this.isload1 && this.isload3 && this.isload4){
+                this.$store.commit("SET_IMG1_LOAD",true)
+            }
+        },
+        loading3() {
+            this.isload3 = true
+            if(this.isload2 && this.isload1 && this.isload4){
+                this.$store.commit("SET_IMG1_LOAD",true)
+            }
+        },
+        loading4() {
+            this.isload4 = true
+            if(this.isload2 && this.isload3 && this.isload1){
+                this.$store.commit("SET_IMG1_LOAD",true)
+            }
+        },
+
         async myPriceShowFunc() {
             let res = await API.getAjax({
                 type: "my_prize",
             })
 
             if(res.data.data){
-                this.$store.commit("SET_PRIZE_ID",number(res.data.data.prize_id))
+                this.$store.commit("SET_PRIZE_ID",Number(res.data.data.prize_id))
+                this.$store.commit("SET_NEED_INPUT", res.data.data.need_input)
             }
-            // this.$store.commit("SET_PRIZE_ID", 3)
+            // this.$store.commit("SET_PRIZE_ID", 0)
+            // this.$store.commit("SET_NEED_INPUT", 1)
+            
             this.mypriceShow = true
-            if(!this.prize_id){
+            if(!(!!this.prize_id || this.prize_id === 0 )){
                 alert("暂无奖品")
             }
         },
@@ -125,20 +153,6 @@ export default {
             this.imageIndex = 0
             this.gogogoshow = false
 
-            axios({
-                url: "http://h5.nxsound.com/ih5/20_06lslz/img/long.15a822d5.jpg",
-                onDownloadProgress(progress) {
-                    this.progress = (Math.round(progress.loaded / progress.total * 100) + '%')
-                }
-            }).then(res => {
-                this.$store.commit("SET_IMG1_LOAD",true)
-                this.$store.commit("SET_IMG2_LOAD",true)
-            }).catch(() => {
-                setTimeout(() => {
-                    this.$store.commit("SET_IMG1_LOAD",true)
-                    this.$store.commit("SET_IMG2_LOAD",true)
-                },5000)
-            })
 
             setTimeout(() => {
                 // this.mycanvas = document.getElementById('gameStage')
@@ -146,23 +160,9 @@ export default {
                 // this.ctx = this.mycanvas.getContext('2d')
                 this.ctx2 = this.mycanvas2.getContext('2d')
                 
-                this.$refs.img.onload = (e) => {
-                    
-                    console.log("loading")
-                    this.$store.commit("SET_IMG1_LOAD",true)
-
-                    setTimeout(() => {
-                        this.$store.commit("SET_IMG2_LOAD",true)
-                    },2000)
-                }
-
-                // img.onload = ()=> {
-                //     this.$store.commit("SET_IMG1_LOAD",true)
-                //     this.ctx.fillRect(0,0,this.mycanvas.width,this.mycanvas.height)
-                //     this.ctx.drawImage(img,this.imageIndex,0)
-                // }
+                
                 img1.onload = () => {
-                    this.$store.commit("SET_IMG2_LOAD",true)
+                    // this.$store.commit("SET_IMG2_LOAD",true)
                     this.ctx2.drawImage(img1,-80,BOTTOM_PX)
                 }
                 
@@ -182,7 +182,7 @@ export default {
                 this.loop2 = setInterval(() => {
                     index_img++
                     this.renderBoating()
-                },300)
+                },400)
 
                 return
             }else{
@@ -234,7 +234,6 @@ export default {
         },
         ...mapState({
             img1load: state => state.img1load,
-            img2load: state => state.img2load,
             prize_id: state => state.prize_id,
         })
     }
@@ -242,6 +241,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+// @function rem($n){
+//   @return $n/(750/16)+rem;
+// }
 
 /*变大变小*/
 @keyframes bigAndSmall195 {
@@ -273,6 +276,7 @@ export default {
 }
 
 #home{
+
     width: 100%;
     height: 100%;
     position:relative;
