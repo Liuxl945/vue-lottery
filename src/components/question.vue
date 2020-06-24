@@ -193,6 +193,10 @@ export default {
 <style lang="scss" scoped>
 @import url("../assets/modal.scss");
 
+@function rem($n){
+  @return $n/(100)+rem;
+}
+
 .content{
     width: 95%;
     position: relative;
@@ -201,7 +205,7 @@ export default {
     }
     .title{
         position: absolute;
-        height: 46px;
+        height: rem(46/2);
         top: 18%;
         left: 50%;
         transform: translateX(-50%);
@@ -211,22 +215,22 @@ export default {
     }
     .qeustion-answer{
         position: absolute;
-        top: 320px;
+        top: rem(320/2);
         width: 76%;
         left: 50%;
         transform: translateX(-50%);
     }
     .content-wapper{
         background: #fff;
-        padding: 40px;
-        font-size: 30px;
+        padding: rem(40/2);
+        font-size: rem(30/2);
         font-weight: 600;
         color: #b77500;
         text-align: justify;
-        box-shadow: 0  2px 18px rgba(194, 110, 40, 0.33);
-        border-radius: 15px;
-        line-height: 44px;
-        margin-bottom: 40px;
+        box-shadow: 0  rem(1) rem(9) rgba(194, 110, 40, 0.33);
+        border-radius: rem(15/2);
+        line-height: rem(22);
+        margin-bottom: rem(20);
     }
 
     .answer-item{
@@ -234,27 +238,35 @@ export default {
         &:active{
             background: #a2ce5f;
         }
-        height: 74px *1.17;
+        height: rem(74 *1.17/2);
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: rem(10);
         display: flex;
-        border-radius: 15px;
-        padding: 20px;
+        border-radius: rem(7.5);
+        padding: rem(10);
         color: #fff;
-        font-size: 36px;
+        font-size: rem(18);
         .order{
             display: flex;
             align-items: center;
             justify-content: center;
             background: #f0b245;
-            height: 40px * 1.17;
-            width: 40px * 1.17;
-            border-radius: 44px;
-            font-size: 40px;
+            height: rem(50 * 1.17/2);
+            width: rem(50 * 1.17/2);
+            border-radius: rem(50);
+            font-size: rem(24);
         }
         .item{
             flex: 1;
-            padding-left: 48px * 1.17;
+            padding-left: rem(40 * 1.17/2);
+        }
+        .right-or-wrong{
+            height: rem(50 * 1.17/2);
+            width: rem(50 * 1.17/2);
+            img{
+                height: rem(50 * 1.17/2);
+                width: rem(50 * 1.17/2);
+            }
         }
         
     }
@@ -268,7 +280,7 @@ export default {
         top: 49%;
         transform: translateX(-50%);
         color: #fff;
-        font-size: 72px;
+        font-size: rem(72/2);
         font-weight: 600;
         transform: rotate(-11deg);
     }
@@ -278,23 +290,23 @@ export default {
     .close{
         position: absolute;
         right: 0;
-        top: 135px;
-        width: 70px;
-        height: 70px;
+        top: rem(135/2);
+        width: rem(35);
+        height: rem(35);
     }
     .again{
         position: absolute;
-        left: 50px;
+        left: rem(25);
         bottom: 0;
-        width: 220px;
-        height: 76px;
+        width: rem(110);
+        height: rem(38);
     }
     .poster{
         position: absolute;
-        right: 30px;
+        right: rem(15);
         bottom: 0;
-        width: 220px;
-        height: 76px;
+        width: rem(110);
+        height: rem(38);
     }
 }
 </style>

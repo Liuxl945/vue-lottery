@@ -153,6 +153,12 @@ export default {
 </script>
 
 <style lang="scss">
+
+@function rem($n){
+  @return $n/(100)+rem;
+}
+
+
 @keyframes rotate{
     0%{
         transform: rotate(0);
@@ -167,21 +173,22 @@ export default {
  
 .rotate{
     // transition: 0.5s;
-    // transform-origin: 30px 30px;  
+    
     animation: rotate 5s linear infinite;  /*开始动画后无限循环，用来控制rotate*/
 }
 
 #app{
-	height: 100%;
+    height: 100%;
+    overflow: hidden;
     width: 100%;
     .music-icon{
-        width: 70px;
-        height: 70px;
+        width: rem(70/2);
+        height: rem(70/2);
         position: absolute;
         right: 0;
         top: 0;
         z-index: 40;
-        margin: 20px;
+        margin: rem(20/2);
         img{
             width: 100%;
         }

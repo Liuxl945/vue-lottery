@@ -133,7 +133,15 @@ export default {
 
 <style lang="scss" scoped>
 @import url("../assets/modal.scss");
+
+
+@function rem($n){
+  @return $n/(100)+rem;
+}
+
 .modal{
+    width: rem(375);
+    overflow: hidden;
     .content,
     .money,
     .msg-ok{
@@ -143,8 +151,9 @@ export default {
         }
     }
     .btn-close{
-        margin: 15px;
-        width: 66px  * 1.17;
+        margin: rem(7.5);
+        width: rem(66 * 1.17/2);
+        height: rem(66 * 1.17/2);
         img{
             width: 100%;
         }
@@ -157,24 +166,24 @@ export default {
         position: absolute;
         bottom: 0;
         left: 50%;
-        width: 300px;
-        height: 88px;
+        width: rem(150);
+        height: rem(44);
         transform: translateX(-50%);
     }
     .form{
         width: 100%;
         position: absolute;
         top: 50%;
-        border-radius: 20px;
+        border-radius: rem(10);
         display: flex;
         flex-direction: column;
-        padding: 40px 100px;
+        padding: rem(20) rem(50);
         input{
-            padding: 0 20px;
-            height: 88px;
-            margin-bottom: 20px;
+            padding: 0 rem(10);
+            height: rem(44);
+            margin-bottom: rem(10);
             border: none;
-            font-size: 30px;
+            font-size: rem(15);
             font-weight: 600;
             color: #f17d48;
             text-align: center;
@@ -202,7 +211,7 @@ export default {
         position: relative;
     }
     .number{
-        width: 128px !important;
+        width: rem(128/2) !important;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -216,32 +225,32 @@ export default {
         flex-direction: column;
         align-items: center;
         >div{
-            height: 60px;
-            width: 200px;
-            margin-bottom: 25px;
+            height: rem(30);
+            width: rem(100);
+            margin-bottom: rem(25/2);
         }
     }
 }
 
 .share-bg{
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     top:0;
     bottom: 0;
     img{
-        width: 400px;
+        width: rem(200);
         position: absolute;
-        right: 40px;
-        top: 40px;
+        right: rem(20);
+        top: rem(20);
     }
 }
 
 .msg-ok{
     position: relative;
     .close{
-        width: 88px;
-        height: 88px;
+        width: rem(44);
+        height: rem(44);
         position: absolute;
         bottom: 0;
         left: 50%;

@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <p>数据加载中</p>
+        <p class="tips">数据加载中</p>
 
         <!-- <p>{{progress}}</p> -->
     </div>
@@ -40,9 +40,17 @@ export default {
 
 <style lang="scss" scoped>
 
+@function rem($n){
+  @return $n/(100)+rem;
+}
+
+.tips{
+    font-size: rem(14);
+}
+
 .loading{
     z-index: 1000;
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     display: flex;
@@ -55,9 +63,9 @@ export default {
     color: #fff;
 
     .loading3{
-        width:60px;
-        height:60px;
-        margin:50px auto;
+        width:rem(30);
+        height:rem(30);
+        margin:rem(25) auto;
         position:relative;
     }
     .circle{
@@ -68,8 +76,8 @@ export default {
         height:100%;
     }
     .circle span{
-        width:12px;
-        height:12px;
+        width:rem(6);
+        height:rem(6);
         display:inline-block;
         background:#fff;
         border-radius: 100%;

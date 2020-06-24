@@ -73,6 +73,7 @@ export default {
             questionModal: false,
             ctx: null,
             imageIndex: 0,
+            recodeIndex:0,
             mycanvas: null,
             gogogoshow: false,
             activeIndex: 0,
@@ -137,7 +138,7 @@ export default {
                 this.$store.commit("SET_NEED_INPUT", res.data.data.need_input)
             }
             // this.$store.commit("SET_PRIZE_ID", 0)
-            // this.$store.commit("SET_NEED_INPUT", 1)
+            // this.$store.commit("SET_NEED_INPUT", 0)
             
             this.mypriceShow = true
             if(!(!!this.prize_id || this.prize_id === 0 )){
@@ -151,6 +152,7 @@ export default {
             this.activeIndex = 0
             this.questionModal = false
             this.imageIndex = 0
+            this.recodeIndex = 0
             this.gogogoshow = false
 
 
@@ -178,6 +180,7 @@ export default {
             if(!this.gogogoshow){
                 this.gogogoshow = true
                 this.renderCenes()
+
                 clearInterval(this.loop2)
                 this.loop2 = setInterval(() => {
                     index_img++
@@ -196,11 +199,13 @@ export default {
             if(!this.ctx2 || this.activeIndex === 8){
                 return
             }
-            this.imageIndex -= 20
-            let arr = [-1460,-2140,-2820,-3940,-6020,-7740,-9620,-12000]
+            let height = window.innerHeight * 2
             
-
-            if(this.imageIndex === arr[this.activeIndex]){
+            this.imageIndex -= 10 * height / 1334
+            this.recodeIndex -=10
+            let arr = [-200,-1040,-2000,-2560,-3590,-4550,-5670,-6830]
+            
+            if(this.recodeIndex === arr[this.activeIndex]){
                 this.activeIndex ++
                 
                 this.questionModal = true
@@ -242,9 +247,9 @@ export default {
 
 <style lang="scss" scoped>
 
-// @function rem($n){
-//   @return $n/(750/16)+rem;
-// }
+@function rem($n){
+  @return $n/(100)+rem;
+}
 
 /*变大变小*/
 @keyframes bigAndSmall195 {
@@ -290,7 +295,10 @@ export default {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 120px;
+        top: rem(60);
+        img{
+            width: rem(300);
+        }
     }
     .animated{
         animation-duration: 1s;
@@ -308,46 +316,47 @@ export default {
     }
     .btn-go{
         z-index: 4;
-        width: 178px * 1.5;
-        height: 92px * 1.5;
+        width: rem(178 * 1.5/2);
+        height: rem(92 * 1.5/2);
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        bottom: 120px;
+        bottom: 8%;
         .fixed{
             position: absolute;
-            width: 178px * 1.5;
-            height: 92px * 1.5;
+            width: rem(178 * 1.5/2);
+            height: rem(92 * 1.5/2);
             z-index: 10;
         }
         img{
-            width: 178px * 1.5;
-            height: 92px * 1.5;
+            width: rem(178 * 1.5/2);
+            height: rem(92 * 1.5/2);
         }
     }
     .right{
         position: absolute;
         right: 0;
-        bottom: 100px;
+        bottom: 8%;
 
         .btn{
-            margin: 14px  * 1.17 0;
+            margin: rem(14  * 1.17/2) 0;
             box-sizing: border-box;
             background: #e74244;
             color: #fff;
-            border: 2px solid #f4ddc1;
+            border: rem(2/2) solid #f4ddc1;
             border-right: none;
-            height: 38px * 1.17;
+            height: rem(42 * 1.17/2);
             text-align: center;
-            line-height: 34px * 1.17;
-            font-size: 24px;
-            width: 110px * 1.17;
-            border-top-left-radius: 100px;
-            border-bottom-left-radius: 100px;;
+            line-height: rem(42 * 1.17/2);
+            font-size: rem(24/2);
+            width: rem(110 * 1.17/2);
+            border-top-left-radius: rem(100/2);
+            border-bottom-left-radius: rem(100/2);;
         }
     }
 
     .sence{
+        overflow: hidden;
         z-index: 3;
         display: block;
         width: 100%;
@@ -363,6 +372,9 @@ export default {
             top: 0;
             position: absolute;
             z-index: 2;
+        }
+        img{
+            height: 100%;
         }
     }
 }

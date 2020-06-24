@@ -25,20 +25,29 @@ export default {
 
 <style lang="scss" scoped>
 @import url("../assets/modal.scss");
+
+
+@function rem($n){
+  @return $n/(100)+rem;
+}
+
+
 .modal{
+    width: rem(375);
+    overflow: hidden;
     .content{
         width: 95%;
         img{
-            width: 360px;
+            width: rem(180);
             min-height: auto !important;
             position: absolute;
-            right: 60px;
-            top: 60px;
+            right: rem(30);
+            top: rem(30);
         }
     }
     .btn-close{
-        margin: 15px;
-        width: 66px  * 1.17;
+        margin: rem(15/2);
+        width: rem(66 * 1.17/2);
         img{
             width: 100%;
         }

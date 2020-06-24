@@ -10,7 +10,7 @@
                 <div class="go" @click="go">
                     <img src="../assets/image/go.png" alt="">
                 </div>
-                <div :style="initStyle">    
+                <div :style="initStyle" class="bg-content">    
                     <img :style="rotateStyle" src="../assets/image/turntable.png" alt="">
                 </div>
             </div>
@@ -153,6 +153,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@function rem($n){
+  @return $n/(100)+rem;
+}
+
 .index,
 .index-bg{
     height: 100%;
@@ -162,10 +167,25 @@ export default {
     .back{
         position: absolute;
         z-index: 10;
-        left: 30px;
-        top: 90px;
-        width: 88px;
-        height: 88px;
+        left: rem(15);
+        top: rem(45);
+        width: rem(44);
+        height: rem(44);
+        img{
+            width: 100%;
+        }
+    }
+    .go{
+        width: rem(150/2);
+        img{
+            width: 100%;
+        }
+    }
+    .bg-content{
+        width: rem(600/2);
+        img{
+            width: 100%;
+        }
     }
     .bg-img{
         width: 100%;

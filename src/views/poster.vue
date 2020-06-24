@@ -16,7 +16,7 @@
                             <p>成功战胜</p>
                             <p>了全国</p>
                         </div>
-                        <div class="right">{{defeat_num || 0}}位人</div>
+                        <div class="right">{{defeat_num || 0}} 个人</div>
                     </div>
                     <div class="bottom">
                         <p>成为了里水线上欢乐家庭赛龙舟文化传承的“知识龙王”</p>
@@ -143,8 +143,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@function rem($n){
+  @return $n/(100)+rem;
+}
+
 #saveImage{
     z-index: 12;
+    overflow: hidden;
     position: absolute;
     // background: darkblue;
     opacity: 0;
@@ -164,6 +170,7 @@ export default {
         transform: translateY(-80%);
     }
 }
+
 .poster,
 .poster-bg{
     height: 100%;
@@ -182,10 +189,11 @@ export default {
     }
 }
 .wx-content{
+    font-size: rem(16);
     position: absolute;
     z-index: 10;
     width: 100%;
-    padding: 20px;
+    padding: rem(10);
     color: #118666;
     display: flex;
     flex-direction: column;
@@ -193,47 +201,48 @@ export default {
     top: 50%;
     transform: translateY(-80%);
     .top{
-        padding-bottom: 10px;
+        padding-bottom: rem(10);
         display: flex;
         align-items: center;
         .avatar{
-            margin-right: 20px;
-            height: 102px;
-            width: 102px;
-            border: 4px solid #fff;
-            border-radius: 92px;
+            margin-right: rem(10);
+            height: rem(51);
+            width: rem(51);
+            border: rem(2) solid #fff;
+            border-radius: rem(92/2);
             overflow: hidden;
             img{
-                height: 94px;
-                width: 94px;
+                height: rem(94/2);
+                width:  rem(94/2);
             }
         }
     }
     .center{
         display: flex;
-        height: 75px * 1.175;
-        border: 2px dashed #118666;
-        font-size: 28px;
+        height: rem(75 * 1.175/2);
+        border: rem(1) dashed #118666;
+        font-size: rem(14);
         align-items: center;
         font-weight: 600;
         text-align: center;
         .left{
-            padding: 0 10px;
+            padding: 0 rem(5);
+            font-size: rem(15);
         }
         .right{
-            padding: 0 10px;
+            padding: 0 rem(5);
             height: 100%;
-            line-height:75px * 1.175;
-            font-size: 36px;
-            border-left: 2px dashed #118666;
+            line-height:rem(75 * 1.175/2);
+            font-size: rem(18);
+            border-left: rem(1) dashed #118666;
             text-align: center;
             flex:1;
         }
     }
     .bottom{
-        padding-top: 15px;
+        padding-top: rem(15/2);
         width: 100%;
-        font-size: 28px;
+        font-size: rem(14);
         text-align: center;
     }
 }
@@ -252,9 +261,10 @@ export default {
 }
 .qr-code{
     position: absolute;
-    bottom: 40px;
-    left: 50%;
+    bottom: rem(20);
+    left: 80%;
     transform: translateX(-50%);
+    width: rem(206/2);
 }
 .share-tips{
     position: absolute;
@@ -263,19 +273,20 @@ export default {
     background: rgba(255, 255, 255, .4);
     color:rgb(250, 79, 52);
     z-index: 120;
+    font-size: rem(18);
     bottom: 4%;
     white-space: nowrap;
-    padding: 10px 20px ;
-    border-radius: 100px;
+    padding: rem(5) rem(10) ;
+    border-radius: rem(50);
 }
 .bottom-btn{
     z-index: 110;
     position: absolute;
-    bottom: 100px;
+    bottom: rem(50);
     width: 100%;
-    height: 88px;
+    height: rem(44);
     display: flex;
-    padding: 0 100px;
+    padding: 0 rem(50);
     .share{
         flex:1;
         img{

@@ -3,7 +3,7 @@
         <div class="content first_prize" v-if="(priceIndex === 1 || priceIndex === 0) && !shareBg">
             <img v-if="priceIndex === 0" src="../assets/image/mine_first_prize.png" alt="一等奖">
             <img v-if="priceIndex === 1" src="../assets/image/mine_second_prize.png" alt="二等奖">
-            <div class="form">
+            <div class="form" v-if="need_input === 1">
                 <input type="text" v-model="username" placeholder="姓名" :readonly="need_input !== 1">
                 <input type="text" v-model="phone" placeholder="电话" :readonly="need_input !== 1">
                 <input type="text" v-model="address" placeholder="邮寄地址" :readonly="need_input !== 1">
@@ -89,6 +89,7 @@ export default {
                         // 信息提交成功
                         alert("提交成功")
                     }
+                    this.cancle()
                 })
             }else{
                 this.cancle()
@@ -135,7 +136,14 @@ export default {
 
 <style lang="scss" scoped>
 @import url("../assets/modal.scss");
+
+@function rem($n){
+  @return $n/(100)+rem;
+}
+
 .modal{
+    width: rem(375);
+    overflow: hidden;
     .content,
     .money{
         width: 95%;
@@ -144,8 +152,9 @@ export default {
         }
     }
     .btn-close{
-        margin: 15px;
-        width: 66px  * 1.17;
+        margin: rem(15/2);
+        width: rem(66  * 1.17/2);
+        height: rem(66 * 1.17/2);
         img{
             width: 100%;
         }
@@ -157,20 +166,20 @@ export default {
     .submit{
         opacity: 0;
         background: rgb(240, 127, 67);
-        border-radius: 10px;
+        border-radius: rem(5);
         position: absolute;
         bottom: 0;
         left: 50%;
-        width: 300px;
-        height: 88px;
+        width: rem(150);
+        height: rem(44);
         transform: translateX(-50%);
-        box-shadow: -5px 5px rgb(238, 92, 61);
+        box-shadow: rem(-5/2) rem(5) rgb(238, 92, 61);
         text-align: center;
         text-align: center;
-        line-height: 88px;
+        line-height: rem(44);
         font-weight: 600;
         color: #fff;
-        font-size: 32px;
+        font-size: rem(16);
     }
     .show{
         opacity: 1 !important;
@@ -179,16 +188,16 @@ export default {
         width: 100%;
         position: absolute;
         top: 50%;
-        border-radius: 20px;
+        border-radius: rem(10);
         display: flex;
         flex-direction: column;
-        padding: 40px 100px;
+        padding: rem(20) rem(50);
         input{
-            padding: 0 20px;
-            height: 88px;
-            margin-bottom: 20px;
+            padding: 0 rem(10);
+            height: rem(44);
+            margin-bottom: rem(10);
             border: none;
-            font-size: 30px;
+            font-size: rem(15);
             font-weight: 600;
             color: #f17d48;
             text-align: center;
@@ -216,7 +225,7 @@ export default {
         position: relative;
     }
     .number{
-        width: 128px !important;
+        width: rem(128/2) !important;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
@@ -230,24 +239,24 @@ export default {
         flex-direction: column;
         align-items: center;
         >div{
-            height: 60px;
-            width: 200px;
-            margin-bottom: 25px;
+            height: rem(30);
+            width: rem(100);
+            margin-bottom: rem(25/2);
         }
     }
 }
 
 .share-bg{
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     top:0;
     bottom: 0;
     img{
-        width: 400px;
+        width: rem(200);
         position: absolute;
-        right: 40px;
-        top: 40px;
+        right: rem(20);
+        top: rem(20);
     }
 }
 </style>
