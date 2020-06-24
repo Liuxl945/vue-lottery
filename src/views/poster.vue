@@ -114,6 +114,10 @@ export default {
             border: 4px solid #fff;
             border-radius: 92px;
             overflow: hidden;
+            img{
+                height: 92px;
+                width: 92px;
+            }
         }
     }
     .center{

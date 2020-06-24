@@ -13,7 +13,7 @@
 
             <div class="sence" v-show="gogogoshow">
                 <div style="height:100%">
-                    <img :style="imgStyle" src="../assets/image/long.jpg" style="min-height:100%">
+                    <img :style="imgStyle" src="../assets/image/long1.jpg" style="min-height:100%">
                 </div>
                 <!-- <canvas id="gameStage" :width="width" :height="height"></canvas> -->
                 <canvas id="gameStage2" :width="width" :height="height"></canvas>
@@ -51,7 +51,7 @@ import axios from "axios"
 let img1 = new Image()
 let img2 = new Image()
 let img3 = new Image()
-// img.src = require("../assets/image/long.jpg")
+// img.src = require("../assets/image/long1.jpg")
 img1.src = require("../assets/image/11.png")
 img2.src = require("../assets/image/22.png")
 img3.src = require("../assets/image/33.png")
@@ -221,7 +221,8 @@ export default {
                 data = img3
                 index_img = 0
             }
-
+            
+            this.ctx2.clearRect(0,0,this.mycanvas2.width,this.mycanvas2.height)
             this.ctx2.drawImage(data,-80,BOTTOM_PX)
         },
     },

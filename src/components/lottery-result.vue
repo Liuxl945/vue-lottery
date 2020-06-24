@@ -19,7 +19,7 @@
             <img v-if="priceIndex === 2 || priceIndex === 7" src="../assets/image/none.png" alt="很抱歉">
 
             <div class="submit-btn">
-                <div class="poster" @click.prevent="poster"></div>
+                <div class="poster" @click.prevent="poster" v-if="priceIndex !== 3"></div>
                 <div class="share" @click.prevent="share"></div>
             </div>
         </div>
@@ -61,6 +61,10 @@ export default {
             this.$store.commit("SET_INDEX", 3)
         },
         share() {
+            if(this.priceIndex === 3){
+                this.cancle()
+                return
+            }
             this.shareBg = true
         },
         async submitInfomation() {
