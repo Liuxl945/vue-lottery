@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 const state = {
-    indexState: 1, //哪个场景
+    indexState: 3, //哪个场景
     defeat_num: 0, //【击败多少人】
     code: "", //【code码 抽奖接口需要提供该code码】
     prize_id: undefined, //【code码 抽奖接口需要提供该code码】

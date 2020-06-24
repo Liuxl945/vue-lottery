@@ -202,7 +202,7 @@ export default {
     .title{
         position: absolute;
         height: 46px;
-        top: 190px;
+        top: 18%;
         left: 50%;
         transform: translateX(-50%);
         >img{

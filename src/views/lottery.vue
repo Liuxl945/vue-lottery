@@ -99,16 +99,16 @@ export default {
                 this.rotating() // 开始旋转
                 return
             })
-
-            if(!res.data){
+            
+            if(res.data.status === 1){
+                this.index = res.data.prize_id
+                this.$store.commit("SET_PRIZE_ID",res.data.prize_id)
+                this.rotating() // 开始旋转
+            }else{
                 this.index = 7
                 this.rotating() // 开始旋转
                 return
             }
-
-            this.index = res.data.prize_id
-            this.$store.commit("SET_PRIZE_ID",res.data.prize_id)
-            this.rotating() // 开始旋转
         },
         random (max, min = 0) {
             return parseInt(Math.random() * (max - min + 1) + min)

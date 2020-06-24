@@ -1,6 +1,6 @@
 <template>
     <div class="modal" v-if="show">
-        <div class="content first_prize" v-if="(priceIndex === 1 || priceIndex === 0) && !shareBg">
+        <div class="content first_prize" v-if="(priceIndex === 1 || priceIndex === 0) && !shareBg && !msgInfoShow">
             <img v-if="priceIndex === 0" src="../assets/image/first_prize.png" alt="一等奖">
             <img v-if="priceIndex === 1" src="../assets/image/second_prize.png" alt="二等奖">
             <div class="form">
@@ -11,15 +11,15 @@
             <div class="submit" @click="submitInfomation"></div>
         </div>
 
-        <div class="money" v-if="priceIndex !== 1 && priceIndex !== 0 && !shareBg">
+        <div class="money" v-if="priceIndex !== 1 && priceIndex !== 0 && !shareBg && !msgInfoShow">
             <div class="position" v-if="priceIndex === 3 || priceIndex === 6 || priceIndex === 5 || priceIndex === 4 ">
-                <img  src="../assets/image/bingo.png" alt="现金红包">
+                <img  src="../assets/image/bingo2.png" alt="现金红包">
                 <img class="number" :src="numberType" alt="">
             </div>
             <img v-if="priceIndex === 2 || priceIndex === 7" src="../assets/image/none.png" alt="很抱歉">
 
             <div class="submit-btn">
-                <div class="poster" @click.prevent="poster" v-if="priceIndex !== 3"></div>
+                <div class="poster" @click.prevent="poster"></div>
                 <div class="share" @click.prevent="share"></div>
             </div>
         </div>
@@ -27,10 +27,18 @@
         <div class="share-bg" v-if="shareBg" @click="shareBg = false;cancle()">
             <img @click.stop src="../assets/image/share.png" alt="分享">
         </div>
+
+        <div class="msg-ok" v-if="msgInfoShow">
+            <img src="../assets/image/submit_ok.png" alt="" srcset="">
+            <div class="close" @click="cancle"></div>
+        </div>
     </div>
 </template>
 
 <script>
+
+import API from "../api/index"
+
 export default {
     props: {
         show: {
@@ -51,20 +59,21 @@ export default {
     data() {
         return {
             shareBg: false,
+            msgInfoShow: false,
             username: "",
             phone: "",
             address: ""
         }
+    },
+    mounted() {
+        // this.msgInfoShow = true
     },
     methods: {
         poster() {
             this.$store.commit("SET_INDEX", 3)
         },
         share() {
-            if(this.priceIndex === 3){
-                this.cancle()
-                return
-            }
+            
             this.shareBg = true
         },
         async submitInfomation() {
@@ -88,6 +97,11 @@ export default {
                 phone: this.phone,
                 address: this.address
             })
+
+            if(res.data.status === 1){
+                // 信息提交成功
+                this.msgInfoShow = true
+            }
 
             if(res.data.status === 1){
                 alert("信息提交成,工作人员会第一时间给您发货")
@@ -123,7 +137,8 @@ export default {
 @import url("../assets/modal.scss");
 .modal{
     .content,
-    .money{
+    .money,
+    .msg-ok{
         width: 95%;
         img{
             width: 100%;
@@ -151,7 +166,7 @@ export default {
     .form{
         width: 100%;
         position: absolute;
-        top: 540px;
+        top: 50%;
         border-radius: 20px;
         display: flex;
         flex-direction: column;
@@ -193,11 +208,11 @@ export default {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 260px;
+        top: 28%;
     }
     .submit-btn{
         position: absolute;
-        bottom: 95px;
+        bottom: 9%;
         display: flex;
         width: 100%;
         flex-direction: column;
@@ -217,11 +232,24 @@ export default {
     top:0;
     bottom: 0;
     img{
-        width: 360px;
+        width: 400px;
         position: absolute;
-        right: 60px;
-        top: 60px;
+        right: 40px;
+        top: 40px;
     }
 }
+
+.msg-ok{
+    position: relative;
+    .close{
+        width: 88px;
+        height: 88px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
 </style>
 

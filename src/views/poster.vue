@@ -1,25 +1,35 @@
 <template>
     <div class="poster">
         <div class="poster-bg" >
-            <img class="bg-img" src="../assets/image/poster.jpg" alt="">
-            <div class="wx-content">
-                <div class="top">
-                    <div class="avatar">
-                        <img :src="userInfo ? userInfo.headimgurl :defaultAvatar" alt="">
+            <div id="bgImgBox" style="width:100%;height:100%;">
+                <img ref="bgImg" @load="loading" class="bg-img" src="../assets/image/poster.jpg" alt="">
+
+                <div class="wx-content" id="wxContent">
+                    <div class="top">
+                        <div class="avatar">
+                            <img @load="loading1" :src="userInfo ? userInfo.headimgurl :defaultAvatar" alt="">
+                        </div>
+                        <p v-if="userInfo">{{userInfo.nickname}}</p>
                     </div>
-                    <p v-if="userInfo">{{userInfo.nickname}}</p>
-                </div>
-                <div class="center">
-                    <div class="left">
-                        <p>成功战胜</p>
-                        <p>了全国</p>
+                    <div class="center">
+                        <div class="left">
+                            <p>成功战胜</p>
+                            <p>了全国</p>
+                        </div>
+                        <div class="right">{{defeat_num || 0}}位人</div>
                     </div>
-                    <div class="right">{{defeat_num || 0}}位人</div>
+                    <div class="bottom">
+                        <p>成为了里水线上欢乐家庭赛龙舟文化传承的“知识龙王”</p>
+                    </div>
                 </div>
-                <div class="bottom">
-                    <p>成为了里水线上欢乐家庭赛龙舟文化传承的“知识龙王”</p>
-                </div>
+
+                <img class="qr-code" @load="loading2" src="../assets/image/qrcode.png" alt="" srcset="">
             </div>
+
+            <div class="bottom-img">
+                <img src="../assets/image/poster.jpg" alt="" srcset="">
+            </div>
+            
 
             <div class="bottom-btn">
                 <div class="share" @click.prevent="share">
@@ -29,6 +39,11 @@
                     <img src="../assets/image/back-btn.png" alt="">
                 </div>
             </div>
+            
+        </div>
+
+        <div id="saveImage">
+            <img id="saveImg" >
         </div>
 
         <v-share :show="shareModal" :cancle="cancleModal"></v-share>
@@ -39,6 +54,25 @@
 
 import Share from "../components/share"
 import { mapState } from "vuex"
+import html2canvas from "html2canvas"
+
+
+function GETDPI() {
+    var arrDPI = new Array;
+    if (window.screen.deviceXDPI) {
+        arrDPI[0] = window.screen.deviceXDPI;
+        arrDPI[1] = window.screen.deviceYDPI;
+    }
+    else {
+        var tmpNode = document.createElement("DIV");
+        tmpNode.style.cssText = "width:1in;height:1in;position:absolute;left:0px;top:0px;z-index:99;visibility:hidden";
+        document.body.appendChild(tmpNode);
+        arrDPI[0] = parseInt(tmpNode.offsetWidth);
+        arrDPI[1] = parseInt(tmpNode.offsetHeight);
+        tmpNode.parentNode.removeChild(tmpNode);
+   }
+   return arrDPI;
+}
 
 export default {
     components: {
@@ -47,12 +81,41 @@ export default {
     data() {
         return {
             shareModal: false,
-            defaultAvatar: require("../assets/image/btn.png")
+            defaultAvatar: require("../assets/image/btn.png"),
+            isloading:false,
+            isloading1:false,
+            isloading2:false,
+            render: true
         }
     },
-    mounted() {
-    },
     methods: {
+        imgRender() {
+            this.render = false
+
+            let width = window.innerWidth
+            let height = window.innerHeight
+            let dpi = window.devicePixelRatio
+            
+            setTimeout(async () => {
+                let canvas = await html2canvas(document.querySelector("#bgImgBox"),{
+                    width: width/dpi/2,
+                    height: height/dpi/2
+                })
+                
+                var dataUrl = canvas.toDataURL("jpeg")
+                document.querySelector("#saveImg").src=dataUrl
+            },1000)
+        },
+        loading() {
+            this.isloading = true
+        },
+        loading1() {
+            this.isloading1 = true
+        },
+        loading2() {
+            this.isloading2 = true
+        },
+
         back() {
             this.$store.commit("SET_INDEX", 1)
             this.$store.commit("SET_SCORE", 0)
@@ -71,11 +134,49 @@ export default {
             userInfo: state => state.userInfo,
             defeat_num: state => state.defeat_num,
         })
+    },
+    watch: {
+        isloading() {
+            if(this.isloading1 && this.isloading2 && this.render){
+                this.imgRender()
+            }
+        },
+        isloading1() {
+            if(this.isloading && this.isloading2 && this.render){
+                this.imgRender()
+            }
+        },
+        isloading2() {
+            if(this.isloading1 && this.isloading && this.render){
+                this.imgRender()
+            }
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+#saveImage{
+    z-index: 12;
+    position: absolute;
+    // background: darkblue;
+    opacity: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    #saveImg{
+        width: 100%;
+        height: 100%;
+    }
+    #saveAvatar{
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-80%);
+    }
+}
 .poster,
 .poster-bg{
     height: 100%;
@@ -95,6 +196,7 @@ export default {
 }
 .wx-content{
     position: absolute;
+    z-index: 10;
     width: 100%;
     padding: 20px;
     color: #118666;
@@ -109,14 +211,14 @@ export default {
         align-items: center;
         .avatar{
             margin-right: 20px;
-            height: 92px;
-            width: 92px;
+            height: 102px;
+            width: 102px;
             border: 4px solid #fff;
             border-radius: 92px;
             overflow: hidden;
             img{
-                height: 92px;
-                width: 92px;
+                height: 94px;
+                width: 94px;
             }
         }
     }
@@ -148,7 +250,27 @@ export default {
         text-align: center;
     }
 }
+.bottom-img{
+    height: 50%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    img{
+        width: 100%;
+        position: absolute;
+        transform: translateY(-50%);
+    }
+}
+.qr-code{
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .bottom-btn{
+    z-index: 11;
     position: absolute;
     bottom: 100px;
     width: 100%;

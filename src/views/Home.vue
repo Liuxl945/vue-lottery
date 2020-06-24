@@ -32,7 +32,7 @@
         </div>
 
         <v-rule :show="ruleModal" :cancle="cancleRuleModal"></v-rule>
-        <v-myprice :show="mypriceShow && prize_id" :cancle="mypriceShowShowHide" :priceIndex="prize_id"></v-myprice>
+        <v-myprice :show="mypriceShow && !!prize_id" :cancle="mypriceShowShowHide" :priceIndex="prize_id"></v-myprice>
         <v-question :show="questionModal" :dataindex="activeIndex" :cancle="cancleQuestionModal" :playagain="init"></v-question>
     </div>
     
@@ -103,15 +103,14 @@ export default {
     },
     methods: {
         async myPriceShowFunc() {
-            await API.getAjax({
+            let res = await API.getAjax({
                 type: "my_prize",
-            }).then( res => {
-
-                if(res.data.status === 1){
-                    this.$store.commit("SET_PRIZE_ID",res.data.data.prize_id)
-                }
             })
 
+            if(res.data.data){
+                this.$store.commit("SET_PRIZE_ID",number(res.data.data.prize_id))
+            }
+            // this.$store.commit("SET_PRIZE_ID", 3)
             this.mypriceShow = true
             if(!this.prize_id){
                 alert("暂无奖品")

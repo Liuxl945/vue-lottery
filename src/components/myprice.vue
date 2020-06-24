@@ -19,7 +19,7 @@
             <img v-if="priceIndex === 2 || priceIndex === 7" src="../assets/image/none.png" alt="很抱歉">
 
             <div class="submit-btn">
-                <div class="poster" @click.prevent="poster"></div>
+                <div class="poster" @click.prevent="poster" v-if="priceIndex === 2 || priceIndex === 7"></div>
                 <div class="share" @click.prevent="share"></div>
             </div>
         </div>
@@ -58,7 +58,11 @@ export default {
             this.$store.commit("SET_INDEX", 3)
         },
         share() {
-            this.shareBg = true
+            if(!(this.priceIndex === 2 || this.priceIndex === 7)){
+                this.cancle()
+            }else{
+                this.shareBg = true
+            }
         }
     },
     computed: {
@@ -118,7 +122,7 @@ export default {
     .form{
         width: 100%;
         position: absolute;
-        top: 540px;
+        top: 50%;
         border-radius: 20px;
         display: flex;
         flex-direction: column;
@@ -160,11 +164,11 @@ export default {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        top: 260px;
+        top: 28%;
     }
     .submit-btn{
         position: absolute;
-        bottom: 75px;
+        bottom: 9%;
         display: flex;
         width: 100%;
         flex-direction: column;
@@ -184,10 +188,10 @@ export default {
     top:0;
     bottom: 0;
     img{
-        width: 360px;
+        width: 400px;
         position: absolute;
-        right: 60px;
-        top: 60px;
+        right: 40px;
+        top: 40px;
     }
 }
 </style>
