@@ -13,7 +13,7 @@
 
 
 <script>
-import Index from "./views/home"
+import Index from "./views/Home"
 import Lottery from "./views/lottery"
 import Poster from "./views/poster"
 import { mapState } from 'vuex'
@@ -28,8 +28,6 @@ async function wxRegister() {
     let userInfo = await API.getAjax({
         type: "getUserInfo"
     })
-    
-    console.log(userInfo)
 
     axios({
         url: "http://h5.nxsound.com/ih5/20_06lslz/ajax_share.php",
@@ -59,7 +57,7 @@ async function wxRegister() {
 　　　　})
 
         let dataForWeixin = {
-            title: `${userInfo.data.data.nickname}邀请您一起参与里水线上欢乐家庭龙舟赛，答题赢丰厚大奖！`,
+            title: `${userInfo.data.data ? userInfo.data.data.nickname : ''}邀请您一起参与里水线上欢乐家庭龙舟赛，答题赢丰厚大奖！`,
             desc: "上善里水 龙舟妙会 里水龙舟【家】年华等你来挑战",
             imgUrl: "http://h5.nxsound.com/ih5/20_06lslz/img/1592937c0136cc6.png",
             link:  "http://h5.nxsound.com/ih5/20_06lslz/",
