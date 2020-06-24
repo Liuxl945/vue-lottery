@@ -82,14 +82,6 @@ export default {
         }
     },
     mounted() {
-        API.getAjax({
-            type: "my_prize",
-        }).then( res => {
-
-            if(res.data.status === 1){
-                this.$store.commit("SET_PRIZE_ID",res.data.data.prize_id)
-            }
-        })
 
         API.getAjax({
             type: "getUserInfo",
@@ -110,7 +102,16 @@ export default {
         clearInterval(this.loop2)
     },
     methods: {
-        myPriceShowFunc() {
+        async myPriceShowFunc() {
+            await API.getAjax({
+                type: "my_prize",
+            }).then( res => {
+
+                if(res.data.status === 1){
+                    this.$store.commit("SET_PRIZE_ID",res.data.data.prize_id)
+                }
+            })
+
             this.mypriceShow = true
             if(!this.prize_id){
                 alert("暂无奖品")
