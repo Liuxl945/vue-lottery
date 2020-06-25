@@ -3,7 +3,7 @@
         <v-index v-if="index === 1" @change="change"></v-index>
 		<v-lottery v-if="index === 2"></v-lottery>
 		<v-poster v-if="index === 3"></v-poster>
-        <audio src="./assets/music2.mp3" id="audio" ref="audio"></audio>
+        <audio src="./assets/music3.mp3" id="audio" ref="audio"></audio>
 
         <div class="music-icon" :class="musicState ? 'rotate' : ''" @click="playMusic">
             <img src="@/assets/image/music.png" alt="">

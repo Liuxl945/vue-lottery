@@ -2,7 +2,8 @@
     <div class="poster">
         <div class="poster-bg" >
             <div id="bgImgBox" style="width:100%;height:100%;">
-                <img ref="bgImg" @load="loading" class="bg-img" src="../assets/image/poster.jpg" alt="">
+                <!-- <img ref="bgImg" @load="loading" class="bg-img" src="../assets/image/poster.jpg" alt=""> -->
+                <img ref="bgImg" @load="loading" class="bg-img" src="http://h5.nxsound.com/ih5/20_06lslz/img/poster.3eb0fd2c36.jpg" alt="">
 
                 <div class="wx-content" id="wxContent">
                     <div class="top">
@@ -23,11 +24,13 @@
                     </div>
                 </div>
 
-                <img class="qr-code" @load="loading2" src="../assets/image/qrcode.png" alt="" srcset="">
+                <!-- <img class="qr-code" @load="loading2" src="../assets/image/qrcode.png" alt="" srcset=""> -->
+                <img class="qr-code" @load="loading2" src="http://h5.nxsound.com/ih5/20_06lslz/img/qrcode.4b84c4d4d4.png" alt="" srcset="">
             </div>
 
             <div class="bottom-img">
-                <img src="../assets/image/poster.jpg" alt="" srcset="">
+                <!-- <img src="../assets/image/poster.jpg" alt="" srcset=""> -->
+                <img src="http://h5.nxsound.com/ih5/20_06lslz/img/poster.3eb0fd2c36.jpg" alt="" srcset="">
             </div>
             
             <div class="share-tips">
