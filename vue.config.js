@@ -4,11 +4,11 @@ module.exports = {
             rules:[
             ]
         },
-        externals: {
-            "vue":"Vue",
-            "vuex":"Vuex",
-            "axios":"axios",
-        }
+        // externals: {
+        //     "vue":"Vue",
+        //     "vuex":"Vuex",
+        //     "axios":"axios",
+        // }
     },
 
     publicPath: "",
