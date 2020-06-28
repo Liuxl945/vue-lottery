@@ -91,6 +91,9 @@ export default {
             this.$store.commit("SET_IMG2_LOAD",true)
         },
         async go() {
+            if(this.isRotating){
+                return
+            }
             let res = await API.getAjax({
                 type: "rotate",
                 code: this.priceCode  //【记录分数接口返回】
